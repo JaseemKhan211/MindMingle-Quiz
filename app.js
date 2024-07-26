@@ -1,21 +1,17 @@
-const http = require('http');
-const url = require('url');
+const path = require('path');
+const express = require('express');
+const app = express();
 
-const server = http.createServer((req, res) => {
-    const pathName = req.url;
-    if(pathName === '/' || pathName === '/overview'){
-        res.end('This is the OVERVIEW');
-    }else if(pathName === '/product'){
-        res.end('This is the PRODUCT');
-    }else {
-        res.writeHead(404, {
-            'Content-type': 'text/html',
-            'my-own-header': 'hello-world'
-        });
-        res.end('<h1>Page not found!</h1>');
-    } 
+// const homeRouter = require('./routes/homeRouter');
+
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, 'views'));
+
+// ROUTES
+app.get('/', (req, res) => {
+    res.status(200).render('base');
 });
 
-server.listen(8000, '127.0.0.1', () => {
-    console.log('Listening to requst on port 8000')
-});
+// app.use('/api/v1/homeScreen', homeRouter);
+
+module.exports = app;

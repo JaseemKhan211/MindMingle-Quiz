@@ -1,0 +1,15 @@
+doctype html
+html
+  head
+    title Welcome to QuizMaster
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    .container
+      .title Welcome to QuizMaster!
+      .subtitle "Unleash Your Knowledge! Get Ready to Challenge Your Limits and Discover New Horizons. Let the Quest for Wisdom Begin!"
+      button.start-btn(onclick="startQuiz()") Start Quiz
+    script.
+      function startQuiz() {
+        // Redirect to the quiz page or start the quiz
+        window.location.href = 'quiz';
+      }
