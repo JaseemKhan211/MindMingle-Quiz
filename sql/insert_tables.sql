@@ -1,0 +1,20 @@
+BEGIN
+  INSERT INTO SYUSR
+  (USRID,
+   USRNAME,
+   EMAIL,
+   PW,
+   ACTIVE_YN,
+   LOCK_YN,
+   ADMIN_YN,
+   STUDENT_YN)
+VALUES
+  (:USRID,
+   :USRNAME,
+   :EMAIL,
+   :PW,
+   :ACTIVE_YN,
+   :LOCK_YN,
+   :ADMIN_YN,
+   :STUDENT_YN);
+END;

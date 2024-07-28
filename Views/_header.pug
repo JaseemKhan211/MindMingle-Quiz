@@ -1,0 +1,11 @@
+header.header
+  nav.nav.nav--tours
+    a.nav__el(href='/') MindMingle Quiz
+  .header__logo
+    img(src='/img/logo-white.png' alt='Quiz App logo')
+  nav.nav.nav--user
+    if user
+      a.nav__el.nav__el--logout Log out
+    else
+      a.nav__el(href='/login') Log in
+      a.nav__el.nav__el--cta(href='/signup') Sign up

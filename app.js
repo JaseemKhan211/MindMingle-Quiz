@@ -2,16 +2,15 @@ const path = require('path');
 const express = require('express');
 const app = express();
 
-// const homeRouter = require('./routes/homeRouter');
+const viewRouter = require('./routes/viewRouters');
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
-// ROUTES
-app.get('/', (req, res) => {
-    res.status(200).render('base');
-});
+// Serving static files
+app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use('/api/v1/homeScreen', homeRouter);
+// ROUTES
+app.use('/', viewRouter);
 
 module.exports = app;
