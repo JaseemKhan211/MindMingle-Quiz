@@ -1,6 +1,10 @@
 exports.getWellcome = (req, res) => {
+    console.log(req.session);
+    const usrid = req.session ? req.session.usrid : null;
+    console.log('User ID:', usrid);
     res.status(200).render('welcome', {
-        title: 'Well-Come'
+        title: 'Well-Come',
+        usrid 
     });
 }
 
