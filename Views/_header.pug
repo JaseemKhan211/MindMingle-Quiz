@@ -4,9 +4,10 @@ header.header
   .header__logo
     img(src='/img/logo-white.png' alt='Quiz App logo')
   nav.nav.nav--user
-    if usrid  
+    if user 
       a.nav__el.nav__el--logout Log out
-        span= usrid
+      a.nav__el(href='/me')
+        span= user.username  
     else
       a.nav__el(href='/login') Log in
       a.nav__el.nav__el--cta(href='/signup') Sign up

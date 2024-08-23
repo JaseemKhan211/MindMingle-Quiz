@@ -1,12 +1,14 @@
-exports.getWellcome = (req, res) => {
-    console.log(req.session);
-    const usrid = req.session ? req.session.usrid : null;
-    console.log('User ID:', usrid);
+const User = require('../models/userModel');
+const catchAsync = require('../utils/catchAsync');
+
+exports.getWellcome = catchAsync( async (req, res) => {
+    const user = await User.find();
+
     res.status(200).render('welcome', {
         title: 'Well-Come',
-        usrid 
+        user
     });
-}
+});
 
 exports.getLoginForm = (req, res) => {
     res.status(200).render('login', {
