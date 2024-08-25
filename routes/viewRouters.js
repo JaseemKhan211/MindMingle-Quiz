@@ -10,5 +10,7 @@ router.get('/', authController.isLoggedIn, viewController.getWellcome);
 router.get('/login', authController.isLoggedIn, viewController.getLoginForm);
 router.get('/signup', viewController.getSignForm);
 
+router.get('/me', viewController.getAccount);
+
 module.exports = router;
 

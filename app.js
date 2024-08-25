@@ -66,7 +66,13 @@ app.use(compression());
 // Test middleware
 app.use((req, res, next) => {
     req.requestTime = new Date().toISOString();
-    console.log(req.cookies);
+
+    // ERROR FIND LOG 💥
+    //console.log('Hearder App Js file log: ', req.headers);
+    //console.log(req.cookies);
+    //console.log('Response User Local Check: ', res.locals.user);
+    //console.log('Response User Local Check: ', req.user);
+    
     next();
 });
 
