@@ -1,0 +1,21 @@
+extends base
+
+block content
+    .quiz-container
+        .quiz-title MindMingle Quiz! 😊 
+        .question-section
+            if question
+                .question-text #{question.text}
+                form.quiz-form(action="/submitAnswer" method="POST")
+                    each answer, index in answers
+                        .answer-item
+                            input(type="radio" name="answer" value=answer required)
+                            label #{answer}
+                    button.submit-btn(type="submit") Submit Answer
+            else
+                #waiting-alert(style="display:none")  
+                    | Waiting
+    
+    script(src="/socket.io/socket.io.js")
+    script(type="module" src="/js/sweetAlert.js")
+    script(type="module" src="/js/startQuiz.js")

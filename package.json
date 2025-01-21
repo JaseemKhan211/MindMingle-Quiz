@@ -1,7 +1,7 @@
 {
   "name": "quiz-app",
   "version": "1.0.0",
-  "description": "Learning Node.js",
+  "description": "MindMingle Quiz is a web-based project.",
   "main": "app.js",
   "scripts": {
     "start": "nodemon server.js",
@@ -10,7 +10,15 @@
     "watch:js": "parcel watch ./public/js/index.js --out-dir ./public/js --out-file bundle.js",
     "build:js": "parcel build ./public/js/index.js --out-dir ./public/js --out-file bundle.js"
   },
-  "keywords": [],
+  "keywords": [
+    "node",
+    "mongodb",
+    "express",
+    "pug",
+    "css",
+    "sweetAlert",
+    "socket.io"
+  ],
   "author": "Jaseem Khan",
   "license": "ISC",
   "dependencies": {
@@ -33,6 +41,9 @@
     "parcel": "^2.12.0",
     "pug": "^3.0.3",
     "slugify": "^1.6.6",
+    "socket.io": "^4.7.5",
+    "socket.io-client": "^4.8.0",
+    "sweetalert2": "^11.14.0",
     "validator": "^13.12.0",
     "xss-clean": "^0.1.4"
   },
@@ -40,5 +51,8 @@
     "ndb": "^1.1.5",
     "nodemon": "^3.1.4",
     "parcel-bundler": "^1.12.5"
+  },
+  "engines": {
+    "node": "22.x"
   }
 }

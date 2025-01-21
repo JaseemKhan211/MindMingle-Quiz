@@ -1,3 +1,4 @@
+const crypto = require('crypto');
 const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
 
@@ -67,11 +68,16 @@ exports.login = catchAsync(async (req, res, next) => {
   }
   
   // ERROR FIND LOG 💥
-  //console.log('current User 03', res.locals.user);
+  // console.log('current User 03', res.locals.user);
 
   // 3) If everything ok, send token to client
   createSendToken(user, 200, res);
 });
+
+exports.logout = (req, res) => {
+  res.clearCookie('jwt');
+  res.status(200).json({ status: 'success' });
+};
 
 exports.protect = catchAsync(async (req, res, next) => {
   // 1) Getting token and check of it's there
@@ -81,28 +87,33 @@ exports.protect = catchAsync(async (req, res, next) => {
     req.headers.authorization.startsWith('Bearer')
   ) {
     token = req.headers.authorization.split(' ')[1];
-  }
+  } else if (req.cookies.jwt) {
+    token = req.cookies.jwt;
+  } 
 
   // ERROR FIND LOG 💥
-  //console.log('Bearer token log: ', token);
+  // console.log('Bearer token log: ', token);
   
   if (!token) {
-    return next(
-      new AppError('You are not logged in! Please log in to get access.', 401)
-    );
+    return res.redirect('/');
+    
+     // ERROR FIND LOG 💥
+    // return next(
+    //   new AppError('You are not logged in! Please log in to get access.', 401)
+    // );
   }
 
   // 2) Verification token
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
   
   // ERROR FIND LOG 💥
-  //console.log('Decoded log', decoded);
+  // console.log('Decoded log', decoded);
 
   // 3) Check if user still exists
   const currentUser = await User.findById(decoded.id);
 
   // ERROR FIND LOG 💥
-  //console.log('Current User log: ', currentUser);
+  // console.log('Current User log: ', currentUser);
 
   if (!currentUser) {
     return next(
@@ -119,32 +130,20 @@ exports.protect = catchAsync(async (req, res, next) => {
 
   // GRANT ACCESS TO PROTECTED ROUTE
   req.user = currentUser;
+  res.locals.user = currentUser;
+
+  // ERROR FIND LOG 💥
+  // console.log('Local Check: ', res.locals.user);
+  
   next();
 });
 
-exports.logout = (req, res) => {
-  res.clearCookie('jwt');
-  res.status(200).json({ status: 'success' });
-};
-
-exports.restrictTo = (...roles) => {
-  return (req, res, next) => {
-    if (!roles.includes(req.user.role)) {
-      
-      // ERROR FIND LOG 💥 
-      console.log('User role check: ', req.user.role);
-      
-      return next(
-        new AppError('You do not have permission to perform this action', 403)
-      );
-    }
-
-    next();
-  };
-};
-
 // Only for rendered pages, no errors!
 exports.isLoggedIn = async (req, res, next) => {
+  if (req.cookies.jwt === null) {
+    return next();
+  }
+
   if (req.cookies.jwt) {
     try {
       // 1) verify token
@@ -157,7 +156,7 @@ exports.isLoggedIn = async (req, res, next) => {
       const currentUser = await User.findById(decoded.id);
 
       // ERROR FIND LOG 💥
-      //console.log('Current User 01', currentUser);
+      // console.log('Current User 01', currentUser);
       
       if (!currentUser) {
         return next();
@@ -172,7 +171,7 @@ exports.isLoggedIn = async (req, res, next) => {
       res.locals.user = currentUser;
 
       // ERROR FIND LOG 💥
-      //console.log('current User 02', res.locals.user);
+      // console.log('current User 02', res.locals.user);
 
       return next();
     } catch (err) {
@@ -181,3 +180,62 @@ exports.isLoggedIn = async (req, res, next) => {
   }
   next();
 };
+
+exports.restrictTo = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      
+      // ERROR FIND LOG 💥 
+      // console.log('User role check: ', req.user.role);
+      
+      return next(
+        new AppError('You do not have permission to perform this action', 403)
+      );
+    }
+
+    next();
+  };
+};
+
+exports.forgotPassword = catchAsync(async (req, res, next) => {
+  // 1) Get user based on POSTed email
+  const user = await User.findOne({ email: req.body.email });
+  if (!user) {
+    return next(new AppError('There is no user with email address.', 404));
+  }
+
+  // 2) Generate the random reset token
+  const resetToken = user.createPasswordResetToken();
+  await user.save({ validateBeforeSave: false });
+
+  // 3) Send it to user's email
+  const resetURL = `${req.protocol}://${req.get(
+    'host'
+  )}/api/v1/users/resetPassword/${resetToken}`;
+
+  const message = `Forgot your password? Submit a PATCH request with your new password and passwordConfirm to: ${resetURL}.\nIf you didn't forget your password, please ignore this email!`;
+
+  try {
+    await sendEmail({
+      email: user.email,
+      subject: 'Your password reset token (valid for 10 min)',
+      message
+    });
+
+    res.status(200).json({
+      status: 'success',
+      message: 'Token sent to email!'
+    });
+  } catch (err) {
+    user.passwordResetToken = undefined;
+    user.passwordResetExpires = undefined;
+    await user.save({ validateBeforeSave: false });
+
+    return next(
+      new AppError('There was an error sending the email. Try again later!'),
+      500
+    );
+  }
+});
+
+exports.resetPassword = (req, res, next) => {};

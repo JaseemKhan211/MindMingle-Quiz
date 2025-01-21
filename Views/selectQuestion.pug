@@ -1,0 +1,12 @@
+extends base
+
+block content
+    .admin-container
+        .title--question Questions Lists - Select Questions Here
+        .question-list(style="max-height: 400px; overflow-y: auto;")
+            each question, index in questions
+                .question-item
+                    .question-text #{index + 1}. #{question.text}
+                    .question-actions
+                        input(type='number' placeholder='Set time (in seconds)' class='time-input' data-question-id=question.id)
+                        button.raise-btn(data-question-id=question.id) Raise Question
