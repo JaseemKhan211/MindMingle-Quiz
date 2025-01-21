@@ -14,10 +14,10 @@
     "node",
     "mongodb",
     "express",
+    "socket.io",
     "pug",
     "css",
-    "sweetAlert",
-    "socket.io"
+    "sweetAlert"
   ],
   "author": "Jaseem Khan",
   "license": "ISC",
