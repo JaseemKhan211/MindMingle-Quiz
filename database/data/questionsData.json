@@ -1,0 +1,201 @@
+[
+    {
+      "_id": 1,
+      "question": "What is Node.js?",
+      "options": [
+        "a) A runtime environment",
+        "b) A programming language",
+        "c) A database",
+        "d) A web server"
+      ],
+      "correctAnswer": "a) A runtime environment"
+    },
+    {
+      "_id": 2,
+      "question": "Which of the following is true about Node.js?",
+      "options": [
+        "a) Node.js is synchronous",
+        "b) Node.js is event-driven",
+        "c) Node.js is a Java library",
+        "d) Node.js is only for frontend"
+      ],
+      "correctAnswer": "b) Node.js is event-driven"
+    },
+    {
+      "_id": 3,
+      "question": "Which of the following command will show all the modules installed locally?",
+      "options": [
+        "a) npm list -g",
+        "b) npm list -local",
+        "c) npm list",
+        "d) npm list -dev"
+      ],
+      "correctAnswer": "c) npm list"
+    },
+    {
+      "_id": 4,
+      "question": "What is the command to install Node.js package globally?",
+      "options": [
+        "a) npm install package",
+        "b) npm install package --global",
+        "c) npm install -g package",
+        "d) npm install -local package"
+      ],
+      "correctAnswer": "c) npm install -g package"
+    },
+    {
+      "_id": 5,
+      "question": "Which of the following is an event-driven model?",
+      "options": [
+        "a) Node.js",
+        "b) Java",
+        "c) Python",
+        "d) Ruby"
+      ],
+      "correctAnswer": "a) Node.js"
+    },
+    {
+      "_id": 6,
+      "question": "What is the default scope in Node.js application?",
+      "options": [
+        "a) Local",
+        "b) Global",
+        "c) Module",
+        "d) Function"
+      ],
+      "correctAnswer": "a) Local"
+    },
+    {
+      "_id": 7,
+      "question": "What is the purpose of the require function in Node.js?",
+      "options": [
+        "a) To create a new module",
+        "b) To export a module",
+        "c) To include a module",
+        "d) To delete a module"
+      ],
+      "correctAnswer": "c) To include a module"
+    },
+    {
+      "_id": 8,
+      "question": "What is the purpose of module.exports in Node.js?",
+      "options": [
+        "a) To include a module",
+        "b) To create a buffer",
+        "c) To export functionalities",
+        "d) To manage dependencies"
+      ],
+      "correctAnswer": "c) To export functionalities"
+    },
+    {
+      "_id": 9,
+      "question": "Which of the following modules is used for path manipulation in Node.js?",
+      "options": [
+        "a) fs",
+        "b) path",
+        "c) http",
+        "d) buffer"
+      ],
+      "correctAnswer": "b) path"
+    },
+    {
+      "_id": 10,
+      "question": "What is the purpose of the Buffer class in Node.js?",
+      "options": [
+        "a) To manage file paths",
+        "b) To handle binary data",
+        "c) To manage HTTP requests",
+        "d) To manage modules"
+      ],
+      "correctAnswer": "b) To handle binary data"
+    },
+    {
+      "_id": 11,
+      "question": "What is the role of the package.json file in Node.js?",
+      "options": [
+        "a) To start Node.js",
+        "b) To manage dependencies",
+        "c) To create a buffer",
+        "d) To handle events"
+      ],
+      "correctAnswer": "b) To manage dependencies"
+    },
+    {
+      "_id": 12,
+      "question": "How do you handle asynchronous operations in Node.js?",
+      "options": [
+        "a) Using setTimeout",
+        "b) Using async/await",
+        "c) Using promises",
+        "d) All of the above"
+      ],
+      "correctAnswer": "d) All of the above"
+    },
+    {
+      "_id": 13,
+      "question": "What is an EventEmitter in Node.js?",
+      "options": [
+        "a) An event handling mechanism",
+        "b) A module for I/O",
+        "c) A file system",
+        "d) A network protocol"
+      ],
+      "correctAnswer": "a) An event handling mechanism"
+    },
+    {
+      "_id": 14,
+      "question": "Which of the following is the core module in Node.js for handling file I/O operations?",
+      "options": [
+        "a) fs",
+        "b) path",
+        "c) http",
+        "d) os"
+      ],
+      "correctAnswer": "a) fs"
+    },
+    {
+      "_id": 15,
+      "question": "What is the command to start a Node.js REPL session?",
+      "options": [
+        "a) node",
+        "b) nodemon",
+        "c) node start",
+        "d) npm start"
+      ],
+      "correctAnswer": "a) node"
+    },
+    {
+      "_id": 16,
+      "question": "What is the purpose of the nextTick() function in Node.js?",
+      "options": [
+        "a) To create an HTTP server",
+        "b) To schedule tasks",
+        "c) To defer the execution",
+        "d) To handle events"
+      ],
+      "correctAnswer": "c) To defer the execution"
+    },
+    {
+      "_id": 17,
+      "question": "Which command is used to check the version of Node.js installed?",
+      "options": [
+        "a) node --version",
+        "b) node -v",
+        "c) npm version",
+        "d) nodejs -v"
+      ],
+      "correctAnswer": "b) node -v"
+    },
+    {
+      "_id": 18,
+      "question": "What does the term 'non-blocking' mean in Node.js?",
+      "options": [
+        "a) Blocking I/O",
+        "b) Non-blocking I/O",
+        "c) Event loop",
+        "d) Callback functions"
+      ],
+      "correctAnswer": "b) Non-blocking I/O"
+    }
+  ]
+  
