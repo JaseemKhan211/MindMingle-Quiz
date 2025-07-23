@@ -10,7 +10,7 @@ export const WaitingAlert =  () => {
 }
 
 export const YourSuccess = () => {
-    Swal.fire({
+    swal.fire({
         icon: "success",
         title: "The question has been raised successfully! 🎉"
     });
@@ -30,3 +30,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const waitingAlert = document.getElementById('waiting-alert');
     if (waitingAlert) WaitingAlert();
 });
+
+export const noLoginAlert =  () => {
+    swal.fire({
+        title: 'You are Not Login',
+        text: 'Please login first, then you can start the quiz.',
+        icon: 'warning',
+        showConfirmButton: true
+    });
+};

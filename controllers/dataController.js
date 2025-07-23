@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 exports.getQuestion = () => {
-    const questionsFilePath = path.resolve(__dirname, '../data/questions/questions.txt');
+    const questionsFilePath = path.resolve(__dirname, '../database/data/questions/questions.txt');
     const fileContent = fs.readFileSync(questionsFilePath, 'utf-8');
 
     const questions = fileContent.split('\n').map(line => {
@@ -13,7 +13,7 @@ exports.getQuestion = () => {
 };
 
 exports.getAnswer = () => {
-    const answersFilePath = path.resolve(__dirname, '../data/answers/answers.txt');
+    const answersFilePath = path.resolve(__dirname, '../database/data/answers/answers.txt');
     const fileContent = fs.readFileSync(answersFilePath, 'utf-8');
 
     // ERROR FIND LOG 💥

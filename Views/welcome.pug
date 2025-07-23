@@ -4,10 +4,13 @@ block content
   .container
     .title Welcome to MindMingle Quiz!
     .subtitle Unleash Your Knowledge! Get Ready to Challenge Your Limits and Discover New Horizons. Let the Quest for Wisdom Begin!
-    a.start-btn(href='/quiz') Start Quiz
+    //- a.start-btn(href='/quiz') Start Quiz
+    button.start-btn Start Quiz
     if (user && user.role === 'admin')
       a.start-btn(href='/select') Set Question Admin 
   p.footer__copyright
     | © by 
     a(href='https://linktr.ee/jaseemkhandev' target='_blank') Jaseem Khan
     | . Feel free to use this project for your own purposes, EXCEPT producing your own course or tutorials!
+
+  script(type="module" src="/js/sweetAlert.js")

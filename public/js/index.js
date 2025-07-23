@@ -2,7 +2,7 @@ import '@babel/polyfill';
 import { login, logout } from './login';
 import { updateSettings } from './updateSettings';
 import { raiseQuestion } from './raiseQuestion';
-import { WaitingAlert, myError } from './sweetAlert';
+import { WaitingAlert, myError, noLoginAlert } from './sweetAlert';
 import { showAlert } from './alerts';
 
 // DOM ELEMENTS
@@ -11,7 +11,7 @@ const logOutBtn = document.querySelector('.nav__el--logout');
 const userDataForm = document.querySelector('.form-user-data');
 const raiseButtons = document.querySelectorAll('.raise-btn');
 const questionText = document.querySelector('.question-text');
-
+const notLogin = document.querySelector('.start-btn');
 
 // DELEGATION
 if(loginForm)
@@ -60,3 +60,10 @@ questionText.addEventListener('DOMContentLoaded', () => {
         WaitingAlert();
     }
 });
+
+if(notLogin) {
+    notLogin.addEventListener('click', (e) => {
+        e.preventDefault();
+        noLoginAlert();
+    });
+}
