@@ -17497,7 +17497,7 @@ var logOutBtn = document.querySelector('.nav__el--logout');
 var userDataForm = document.querySelector('.form-user-data');
 var raiseButtons = document.querySelectorAll('.raise-btn');
 var questionText = document.querySelector('.question-text');
-var notLogin = document.querySelector('.start-btn');
+var notLogin = document.querySelector('.start-btn-notlogin');
 
 // DELEGATION
 if (loginForm) loginForm.addEventListener('submit', function (e) {
@@ -17571,7 +17571,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61756" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54470" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

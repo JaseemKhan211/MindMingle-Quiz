@@ -4,8 +4,10 @@ block content
   .container
     .title Welcome to MindMingle Quiz!
     .subtitle Unleash Your Knowledge! Get Ready to Challenge Your Limits and Discover New Horizons. Let the Quest for Wisdom Begin!
-    //- a.start-btn(href='/quiz') Start Quiz
-    button.start-btn Start Quiz
+    if !isLoggedIn
+      a.start-btn-notlogin(href='#') Start Quiz
+    else 
+      a.start-btn(href='/quiz') Start Quiz
     if (user && user.role === 'admin')
       a.start-btn(href='/select') Set Question Admin 
   p.footer__copyright

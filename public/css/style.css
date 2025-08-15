@@ -1368,6 +1368,24 @@ body {
   background: #FF6584;
 }
 
+.start-btn-notlogin {
+  position: relative;
+  top: 45px;
+  background: #f0a211;
+  color: white;
+  padding: 15px 10px;
+  margin-left: 15px;
+  font-size: 1.4em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.start-btn-notlogin:hover {
+  background: #FF6584;
+}
+
 a {
   color: #FF6584;
   text-decoration: none;

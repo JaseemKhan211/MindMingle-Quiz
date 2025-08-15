@@ -11,7 +11,7 @@ const logOutBtn = document.querySelector('.nav__el--logout');
 const userDataForm = document.querySelector('.form-user-data');
 const raiseButtons = document.querySelectorAll('.raise-btn');
 const questionText = document.querySelector('.question-text');
-const notLogin = document.querySelector('.start-btn');
+const notLogin = document.querySelector('.start-btn-notlogin');
 
 // DELEGATION
 if(loginForm)

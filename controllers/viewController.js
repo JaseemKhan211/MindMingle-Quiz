@@ -18,7 +18,8 @@ exports.getWellcome = catchAsync( async (req, res) => {
     }
     
     res.status(200).render('welcome', {
-        title: 'Well-Come'
+        title: 'Well-Come',
+        isLoggedIn: !!res.locals.user
     });
 });
 
