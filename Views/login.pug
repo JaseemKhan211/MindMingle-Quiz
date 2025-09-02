@@ -7,9 +7,14 @@ block content
             form.form.form--login
                 .form__group
                     label.form__label(for='user_id') User id
-                    input#user_id.form__input(type='id', placeholder='JK-01', required)
+                    input#user_id.form__input(type='text', placeholder='JK-01', required)
+
                 .form__group.ma-bt-md
                     label.form__label(for='password') Password
-                    input#password.form__input(type='password', placeholder='••••••••', required, minlength='8')
+                    .password-wrapper
+                        input#password.form__input(type='password', placeholder='••••••••', required, minlength='8')
+                        span#togglePw.toggle-icon
+                            i.fa-solid.fa-eye  
+
                 .form__group
-                    button.btn.btn--green Login
+                    button.btn.btn--green(type='submit') Login

@@ -1,4 +1,5 @@
 import '@babel/polyfill';
+import "@fortawesome/fontawesome-free/js/all.min.js";
 import { login, logout } from './login';
 import { updateSettings } from './updateSettings';
 import { raiseQuestion } from './raiseQuestion';
@@ -12,6 +13,9 @@ const userDataForm = document.querySelector('.form-user-data');
 const raiseButtons = document.querySelectorAll('.raise-btn');
 const questionText = document.querySelector('.question-text');
 const notLogin = document.querySelector('.start-btn-notlogin');
+const pwField = document.getElementById('password');
+const togglePw = document.getElementById('togglePw');
+const icon = togglePw.querySelector('i');
 
 // DELEGATION
 if(loginForm)
@@ -66,4 +70,18 @@ if(notLogin) {
         e.preventDefault();
         noLoginAlert();
     });
+}
+
+if (togglePw && pwField && icon) {
+  togglePw.addEventListener('click', () => {
+    if (pwField.type === 'password') {
+      pwField.type = 'text';
+      icon.classList.remove('fa-eye');
+      icon.classList.add('fa-eye-slash');
+    } else {
+      pwField.type = 'password';
+      icon.classList.remove('fa-eye-slash');
+      icon.classList.add('fa-eye');
+    }
+  });
 }
