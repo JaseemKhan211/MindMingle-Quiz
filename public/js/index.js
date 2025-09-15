@@ -16,6 +16,7 @@ const notLogin = document.querySelector('.start-btn-notlogin');
 const pwField = document.getElementById('password');
 const togglePw = document.getElementById('togglePw');
 const icon = togglePw.querySelector('i');
+const formBtn = document.querySelector('start-btn');
 
 // DELEGATION
 if(loginForm)

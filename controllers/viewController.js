@@ -81,3 +81,10 @@ exports.updateUserData = catchAsync(async (req, res, next) => {
     });
 });
 
+//function of form
+exports.getForm = (req, res)=>{
+  res.status(200).render('form', {
+    title: 'Form'
+  });
+}
+
