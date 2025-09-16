@@ -88,3 +88,16 @@ exports.getForm = (req, res)=>{
   });
 }
 
+//function of report
+exports.getQuesreport = (req, res)=>{
+  res.status(200).render('quesreport', {
+    title: 'Ques Report'
+  });
+}
+
+exports.getAnsreport = (req, res)=>{
+  res.status(200).render('ansreport', {
+    title: 'Ans Report'
+  });
+}
+

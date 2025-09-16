@@ -4,12 +4,11 @@ block content
   .form-container
     .form-header
       h2 Question & Answer Registration
-    
     .form-wrapper
       // Question Form
       .form-section
         h3.section-title Question
-        form(action="#" method="POST")
+        form
           .form-group
             label(for="question-id") Question ID
             input#question-id(type="text" placeholder="e.g., Q-123")
@@ -33,15 +32,22 @@ block content
           .form-group
             label(for="question-text") Question Text
             textarea#question-text(rows="8" placeholder="Enter your question here...")
+            .button-group
+              a.apibtn.btn-update(href="#")
+                i.fas.fa-edit
+                | Update  
+              a.apibtn.btn-delete(href="#")
+                i.fas.fa-trash-alt
+                | Delete
       
-      // Answer Form
+      // Answer Form Ka hissa
       .form-section
         h3.section-title Answer
-        form(action="#" method="POST")
+        form
           .form-group
             label(for="answer-id") Answer ID
             input#answer-id(type="text" placeholder="e.g., A-456")
-
+            
           .form-group
             label(for="answer-type") Answer Type
             select#answer-type
@@ -61,11 +67,24 @@ block content
           .form-group
             label(for="answer-remarks") Answer Remarks
             textarea#answer-remarks(rows="8" placeholder="Add remarks or notes about the answer...")
+            .button-group
+              a.apibtn.btn-update(href="#")
+                i.fas.fa-edit
+                | Update  
+              a.apibtn.btn-delete(href="#")
+                i.fas.fa-trash-alt
+                | Delete
 
     .form-actions
-      button.btn.btn-cancel(type="button")
-        i.fa-solid.fa-arrow-left
-        | Cancel
-      button.btn.btn-create(type="submit")
+      a.btn.btn-report(href='/quesreport')
         i.fa-solid.fa-arrow-down
-        | Create
+        | Get Question Report
+      a.btn.btn-report(href='/ansreport')
+        i.fa-solid.fa-arrow-down
+        | Get Answers Report
+      a.btn.btn-cancel(type="button")
+        i.fa-solid.fa-arrow-left
+        | Cancel  
+      a.btn.btn-cancel(type="button")
+        i.fa-solid.fa-plus
+        | Create   

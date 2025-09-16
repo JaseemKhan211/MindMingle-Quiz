@@ -1,0 +1,37 @@
+extends base
+
+block content
+
+  .report-container
+    .report-header Report Of Answers
+    
+    .search-section
+      .search-input
+        span.search-icon 🔍
+        input(
+          type="text" 
+          placeholder="Search..." 
+          id="searchInput"
+        )
+      
+      .action-buttons
+        button.btn(onclick="goBack()") Back
+        button.btn(onclick="createNew()") create
+
+    table.data-table
+      thead
+        tr
+          th.edit-col Edit
+          th.id-col Answer ID
+          th.type-col Answer Type
+          th.status-col Answer Status
+          th.text-col Answer Text
+      
+      tbody
+        - for (let i = 0; i < 10; i++)
+          tr
+            td
+            td
+            td
+            td
+            td

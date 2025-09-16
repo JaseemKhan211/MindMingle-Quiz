@@ -11,6 +11,8 @@ router.get('/select', authController.protect, viewController.getselectQuestion);
 router.get('/quiz', authController.protect, viewController.getstartQuiz);
 router.get('/signup', viewController.getSignForm);
 router.get('/form', authController.protect, viewController.getForm);
+router.get('/quesreport', authController.protect, viewController.getQuesreport)
+router.get('/ansreport', authController.protect, viewController.getAnsreport)
 
 router.post('/submit-user-data', authController.protect, viewController.updateUserData);
 
