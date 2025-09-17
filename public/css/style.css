@@ -1536,7 +1536,7 @@ input[type="radio"] {
 .form-container {
   max-width: 1400px;
   margin: 40px auto;
-  padding: 40px; 
+  padding: 10px 50px 20px 50px; 
   background-color: #fff;
   border-radius: 16px;
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
@@ -1546,8 +1546,8 @@ input[type="radio"] {
 
 .form-header {
   text-align: center;
-  margin-bottom: 40px;
-  padding-bottom: 25px;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
   border-bottom: 1px solid #e8e8e8;
 }
 
@@ -1711,7 +1711,7 @@ a.btn.btn-report:hover {
 }
 
 .apibtn.btn-delete {
-  background-color: #f0a211;
+  background-color: #f05011;
 }
 
 .apibtn.btn-delete:hover {
@@ -1727,7 +1727,7 @@ a.btn.btn-report:hover {
       max-width: 100%;
       margin: 20px;
       background: white;
-      border: 2px solid #333;
+      border: 0.5px solid #d6d3d3;
       font-family: Arial, sans-serif;
     }
 
@@ -1737,7 +1737,7 @@ a.btn.btn-report:hover {
       padding: 15px;
       font-size: 18px;
       font-weight: bold;
-      border-bottom: 2px solid #333;
+      border-bottom: 0.5px solid #d6d3d3;
       color: #333;
     }
 
@@ -1746,7 +1746,7 @@ a.btn.btn-report:hover {
       display: flex;
       align-items: center;
       gap: 15px;
-      border-bottom: 1px solid #333;
+      border-bottom: 0.5px solid #d6d3d3;
     }
 
     .search-input {
@@ -1757,7 +1757,7 @@ a.btn.btn-report:hover {
 
     .search-input input {
       padding: 8px 12px 8px 35px;
-      border: 1px solid #ccc;
+      border: 0.5px solid #ccc;
       font-size: 14px;
       width: 200px;
     }
@@ -1777,7 +1777,7 @@ a.btn.btn-report:hover {
 
     .btn {
       padding: 8px 16px;
-      border: 1px solid #ccc;
+      border: 0.5px solid #ccc;
       background: #f8f9fa;
       cursor: pointer;
       font-size: 13px;
@@ -1796,7 +1796,7 @@ a.btn.btn-report:hover {
 
     .data-table th {
       background: #f8f9fa;
-      border: 1px solid #333;
+      border: 0.1px solid #d6d3d3;
       padding: 12px 8px;
       text-align: center;
       font-weight: bold;
@@ -1805,7 +1805,7 @@ a.btn.btn-report:hover {
     }
 
     .data-table td {
-      border: 1px solid #333;
+      border: 0.1px solid #d6d3d3;
       padding: 10px 8px;
       text-align: center;
       min-height: 40px;
@@ -1840,10 +1840,6 @@ a.btn.btn-report:hover {
     .text-col {
       width: auto;
       min-width: 200px;
-    }
-
-    .report-container {
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
 
     @media (max-width: 768px) {
