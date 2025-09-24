@@ -23416,7 +23416,7 @@ var questionText = document.querySelector('.question-text');
 var notLogin = document.querySelector('.start-btn-notlogin');
 var pwField = document.getElementById('password');
 var togglePw = document.getElementById('togglePw');
-var icon = togglePw.querySelector('i');
+var icon = togglePw ? togglePw.querySelector('i') : null;
 
 // DELEGATION
 if (loginForm) loginForm.addEventListener('submit', function (e) {
@@ -23465,6 +23465,7 @@ if (notLogin) {
     (0, _sweetAlert.noLoginAlert)();
   });
 }
+;
 if (togglePw && pwField && icon) {
   togglePw.addEventListener('click', function () {
     if (pwField.type === 'password') {
@@ -23503,7 +23504,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50268" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50163" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

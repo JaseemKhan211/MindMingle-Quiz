@@ -3,7 +3,7 @@ import "@fortawesome/fontawesome-free/js/all.min.js";
 import { login, logout } from './login';
 import { updateSettings } from './updateSettings';
 import { raiseQuestion } from './raiseQuestion';
-import { WaitingAlert, myError, noLoginAlert } from './sweetAlert';
+import { WaitingAlert, noLoginAlert } from './sweetAlert';
 import { showAlert } from './alerts';
 
 // DOM ELEMENTS
@@ -15,7 +15,7 @@ const questionText = document.querySelector('.question-text');
 const notLogin = document.querySelector('.start-btn-notlogin');
 const pwField = document.getElementById('password');
 const togglePw = document.getElementById('togglePw');
-const icon = togglePw.querySelector('i');
+const icon = togglePw ? togglePw.querySelector('i') : null;
 
 // DELEGATION
 if(loginForm)
@@ -70,7 +70,7 @@ if(notLogin) {
         e.preventDefault();
         noLoginAlert();
     });
-}
+};
 
 if (togglePw && pwField && icon) {
   togglePw.addEventListener('click', () => {

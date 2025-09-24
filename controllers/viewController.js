@@ -81,3 +81,9 @@ exports.updateUserData = catchAsync(async (req, res, next) => {
     });
 });
 
+exports.getqaForm = (req, res) => {
+  res.status(200).render('qaForm', {
+    title: "QA Form",
+  });
+}; 
+
