@@ -14,8 +14,6 @@ block content
                 ul.side-nav
                     +navItem('#', 'Settings', 'settings', true)
                     +navItem('#', 'My quiz', 'briefcase')
-                    +navItem('#', 'My reviews', 'star')
-                    +navItem('#', 'Billing', 'credit-card')
 
                 - if (user.role === 'admin')
                     .admin-nav
@@ -23,8 +21,6 @@ block content
                         ul.side-nav
                             +navItem('#', 'Manage roles', 'map')
                             +navItem('#', 'Manage users', 'users')
-                            +navItem('#', 'Manage reviews', 'star')
-                            +navItem('#', 'Manage quiz', 'briefcase')
 
             .user-view__content
                 .user-view__form-container
@@ -36,10 +32,10 @@ block content
                     //- WITH API
                     form.form.form-user-data
                         .form__group
-                            label.form__label(for='name') User name
-                            input#username.form__input(type='text', value=`${user.username}`, required, name='name')
+                            label.form__label(for='name') User Name
+                            input#name.form__input(type='text', value=`${user.username}`, required, name='name')
                         .form__group.ma-bt-md
-                            label.form__label(for='email') Email address
+                            label.form__label(for='email') Email Address
                             input#email.form__input(type='email', value=`${user.email}`, required, name='email')
                         .form__group.form__photo-upload
                             img.form__user-photo(src=`/img/users/${user.photo}`, alt='User photo')
@@ -53,13 +49,13 @@ block content
                     h2.heading-secondary.ma-bt-md Password change
                     form.form.form-user-password
                         .form__group
-                            label.form__label(for='password-current') Current password
+                            label.form__label(for='password-current') Current Password
                             input#password-current.form__input(type='password', placeholder='••••••••', required, minlength='8')
                         .form__group
-                            label.form__label(for='password') New password
+                            label.form__label(for='password') New Password
                             input#password.form__input(type='password', placeholder='••••••••', required, minlength='8')
                         .form__group.ma-bt-lg
-                            label.form__label(for='password-confirm') Confirm password
+                            label.form__label(for='password-confirm') Confirm Password
                             input#password-confirm.form__input(type='password', placeholder='••••••••', required, minlength='8')
                         .form__group.right
                             button.btn.btn--small.btn--green.btn--save-password Save password

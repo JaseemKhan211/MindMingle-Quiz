@@ -13,7 +13,11 @@ router.get('/qaform', authController.protect, viewController.getqaForm);
 router.get('/signup', viewController.getSignForm);
 
 
-router.post('/submit-user-data', authController.protect, viewController.updateUserData);
+router.post(
+  '/submit-user-data',
+  authController.protect,
+  viewController.updateUserData
+);
 
 module.exports = router;
 
