@@ -1,0 +1,30 @@
+extends base
+
+block content
+  .report-container
+    h2.heading-secondary.ma-bt-md Questions & Answers Report
+
+    if message
+      p.alert-message #{message}
+
+    if questions && questions.length
+      table.report-table
+        thead
+          tr
+            th #  
+            th Question
+            th Options
+            th Correct Answer
+        tbody
+          each qa, index in questions
+            tr
+              td #{index + 1}
+              td #{qa.question}
+              td
+                ul
+                  each opt in qa.options
+                    li #{opt}
+              td 
+                span.correct-answer #{qa.correct}
+    else
+      p.no-data ⚠️ No questions available. Please upload first.

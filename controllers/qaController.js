@@ -27,3 +27,10 @@ exports.uploadQA = catchAsync(async (req, res, next) => {
     message: "✅ Questions uploaded successfully!",
   });
 });
+
+exports.getReport = catchAsync(async (req, res, next) => {
+  const QAS = await QA.find();
+  res.render('report', { 
+    QAS 
+  });
+});
