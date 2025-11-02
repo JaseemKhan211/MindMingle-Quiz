@@ -85,7 +85,7 @@ app.use((req, res, next) => {
 app.use('/', viewRouter);
 app.use('/api/v1/users', userRouters);
 app.use('/api/v1/data', dataRouters);
-app.use('/', qaRouters);
+app.use('/api/v1/uploadData', qaRouters);
 
 app.all('*', (req, res, next) => {
     next(new AppError(`Can't fint ${req.originalUrl} on the server!`, 404));
