@@ -117,11 +117,15 @@ exports.uploadQA = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getReport = catchAsync(async (req, res, next) => {
-  const QAS = await QA.find();
+exports.getReport = async (req, res) => {
+  try {
+    const QAS = await QA.find();
   
-  res.render('report', { 
-    QAS,
-    title: 'QA Report' 
-  });
-});
+    res.status(200).res.render('report', { 
+      title: 'QA Report',
+      QAS 
+    });
+  } catch(error) {
+      res.status(500).send("Error fetching Q/A data", error.message);
+  }
+};
