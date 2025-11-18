@@ -9,11 +9,6 @@ const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 
 const questions = getQuestion();
-// const answers = getAnswer();
-
-// ERROR FIND LOG 💥
-// console.log('CHECK QUESTION', questions);
-// console.log('CHECK ANSWER', answers);
 
 exports.getWellcome = catchAsync( async (req, res) => {
     const user = await User.findOne();
@@ -121,11 +116,14 @@ exports.getReport = async (req, res) => {
   try {
     const QAS = await QA.find();
   
-    res.status(200).res.render('report', { 
+    res.status(200).render('report', { 
       title: 'QA Report',
       QAS 
     });
   } catch(error) {
-      res.status(500).send("Error fetching Q/A data", error.message);
+      res.status(500).send(
+        "Error fetching Q/A data", 
+        error.message
+      );
   }
 };

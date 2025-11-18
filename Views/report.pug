@@ -6,16 +6,18 @@ block content
     table.report-table
         thead
           tr
-            th Question
+            th Sr. No.
+            th Question 
             th Options
             th Correct Answer
         tbody
-          each qa in QAS
+          each qa, index  in QAS
             tr
+              td= index + 1
               td= qa.question
               td
-                ul
+                ul.options-list
                   each opt in qa.options
-                    li= opt
+                    li.options-answers= opt
               td 
                 span.correct-answer= qa.correct

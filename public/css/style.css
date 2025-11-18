@@ -1768,11 +1768,12 @@ a.btn.btn-report-qa:hover {
 }
 
 .report-container {
-  max-width: 900px;
+  width: 80%;
   margin: 40px auto;
+  text-align: center;
   background: #fff;
   padding: 25px;
-  border-radius: 12px;
+  border-radius: 15px;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -1790,7 +1791,6 @@ a.btn.btn-report-qa:hover {
 .report-table td {
   border: 1px solid #ddd;
   padding: 10px 15px;
-  text-align: left;
 }
 
 .report-table th {
@@ -1798,13 +1798,30 @@ a.btn.btn-report-qa:hover {
   font-weight: bold;
 }
 
+.report-table td ul li {
+  text-align: center;
+}
+
 .report-table tr:nth-child(even) {
   background-color: #fafafa;
 }
 
+.options-list {
+  list-style: none;        
+  padding: 0;
+  margin: 0;
+}
+
+.options-answers {
+  color: rgb(236, 78, 78);
+  text-align: center;
+  font-weight: 600;
+}
+
 .correct-answer {
   color: green;
-  font-weight: 600;
+  text-align: center;
+  font-weight: 800;
 }
 
 .no-data {
