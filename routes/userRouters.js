@@ -13,7 +13,12 @@ router.post('/resetPassword', authController.resetPassword);
 router.get('/logout', authController.logout);
 router.patch('/updateMyPassword', authController.protect, authController.updatePassword);
 router.get('/me', userController.getMe, userController.getUser);
-router.patch('/updateMe', authController.protect, userController.updateMe);
+router.patch(
+    '/updateMe', 
+    userController.uploadUserPhoto,
+    userController.resizeUserPhoto, 
+    userController.updateMe
+);
 router.delete('/deleteMe', userController.deleteMe);
 
 router
