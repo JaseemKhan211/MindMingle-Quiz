@@ -29,13 +29,25 @@ loginForm.addEventListener('submit', e => {
 
 if (logOutBtn) logOutBtn.addEventListener('click', logout);
 
+// if (userDataForm)
+//     userDataForm.addEventListener('submit', e => {
+//       e.preventDefault();
+//       const username = document.getElementById('name').value;
+//       const email = document.getElementById('email').value;
+//       updateSettings({ username, email }, 'data');
+// });
+
 if (userDataForm)
-    userDataForm.addEventListener('submit', e => {
-      e.preventDefault();
-      const username = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      updateSettings({ username, email }, 'data');
-});
+  userDataForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const form = new FormData();
+    form.append('name', document.getElementById('name').value);
+    form.append('email', document.getElementById('email').value);
+    form.append('photo', document.getElementById('photo').files[0]);
+    console.log(form);
+
+    updateSettings(form, 'data');
+  });
 
 if (userPasswordForm)
   userPasswordForm.addEventListener('submit', async e => {

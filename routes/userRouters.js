@@ -23,7 +23,7 @@ router.get('/me',
 router.patch(
     '/updateMe', 
     userController.uploadUserPhoto,
-    // userController.resizeUserPhoto, 
+    userController.resizeUserPhoto, 
     userController.updateMe
 );
 
@@ -38,4 +38,4 @@ router
     .get(userController.getUser)
     .delete(authController.protect, authController.restrictTo('admin'), userController.deleteUser);
 
-    module.exports = router;
+module.exports = router;
