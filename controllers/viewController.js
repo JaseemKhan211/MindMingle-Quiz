@@ -31,7 +31,7 @@ exports.getLoginForm = (req, res) => {
 
 exports.getSignForm = (req, res) => {
     res.status(200).render('signup', {
-        title: 'Sign Up'
+        title: 'Adding User'
     });
 };
 
