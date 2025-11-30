@@ -127,3 +127,19 @@ exports.getReport = async (req, res) => {
       );
   }
 };
+
+exports.getUserReport = async (req, res) => {
+  try {
+    const users = await User.find();
+  
+    res.status(200).render('userReport', { 
+      title: 'Users Report',
+      users
+    });
+  } catch(error) {
+      res.status(500).send(
+        "Error fetching users data", 
+        error.message
+      );
+  }
+};

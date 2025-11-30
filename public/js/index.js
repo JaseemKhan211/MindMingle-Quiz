@@ -1,12 +1,13 @@
 import '@babel/polyfill';
 import "@fortawesome/fontawesome-free/js/all.min.js";
-import { login, logout } from './login';
+import { signUp, login, logout } from './login';
 import { updateSettings } from './updateSettings';
 import { raiseQuestion } from './raiseQuestion';
 import { WaitingAlert, noLoginAlert } from './sweetAlert';
 import { showAlert } from './alerts';
 
 // DOM ELEMENTS
+const signForm = document.querySelector('.form--signup');
 const loginForm = document.querySelector('.form--login');
 const logOutBtn = document.querySelector('.nav__el--logout');
 const userDataForm = document.querySelector('.form-user-data');
@@ -19,6 +20,18 @@ const togglePw = document.getElementById('togglePw');
 const icon = togglePw ? togglePw.querySelector('i') : null;
 
 // DELEGATION
+if(signForm)
+  signForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const user_id = document.getElementById('user_id').value;
+    const username = document.getElementById('username').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const passwordConfirm = document.getElementById('passwordConfirm').value;
+    signUp( user_id, username, email, password, passwordConfirm );
+  }
+);
+
 if(loginForm)
 loginForm.addEventListener('submit', e => {
     e.preventDefault();
