@@ -17,6 +17,7 @@ router.get('/quiz', authController.protect, viewController.getstartQuiz);
 router.get('/qaform', authController.protect, viewController.getqaForm);
 router.get('/report', authController.protect, viewController.getReport);
 router.get('/users', authController.protect, viewController.getUserReport);
+router.get('/roles', authController.protect, viewController.getRoleReport);
 
 router.post(
     "/upload", 

@@ -2,7 +2,7 @@ extends base
 
 block content
   .report-container
-    h2.heading-secondary.ma-bt-md All Users Report
+    h2.heading-secondary.ma-bt-md Manage roles all users into your account
     table.report-table
         thead
           tr
@@ -10,10 +10,12 @@ block content
             th User Id  
             th Username 
             th Email
+            th Role
         tbody
-          each user, index  in users 
+          each rl, index  in roles
             tr
               td= index + 1
-              td= user.user_id
-              td= user.username
-              td= user.email
+              td= rl.user_id
+              td= rl.username
+              td= rl.email
+              td= rl.role

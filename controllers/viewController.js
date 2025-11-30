@@ -143,3 +143,19 @@ exports.getUserReport = async (req, res) => {
       );
   }
 };
+
+exports.getRoleReport = async (req, res) => {
+  try {
+    const roles = await User.find();
+  
+    res.status(200).render('roleReport', { 
+      title: 'Roles Report',
+      roles
+    });
+  } catch(error) {
+      res.status(500).send(
+        "Error fetching roles data", 
+        error.message
+      );
+  }
+};
