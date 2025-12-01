@@ -2,7 +2,7 @@ extends base
 
 block content
   .report-container
-    h2.heading-secondary.ma-bt-md Manage roles all users into your account
+    h2.heading-secondary.ma-bt-md Manage roles for all users in your account
     table.report-table
         thead
           tr
@@ -18,4 +18,7 @@ block content
               td= rl.user_id
               td= rl.username
               td= rl.email
-              td= rl.role
+              td
+                select(name='role' data-user-id=rl.user_id)
+                  option(value='admin' selected=rl.role === 'admin') Admin
+                  option(value='user' selected=rl.role === 'user') User
