@@ -2,6 +2,7 @@ import '@babel/polyfill';
 import "@fortawesome/fontawesome-free/js/all.min.js";
 import { signUp, login, logout } from './login';
 import { updateSettings } from './updateSettings';
+import { updateRole } from './updateAPI';
 import { raiseQuestion } from './raiseQuestion';
 import { WaitingAlert, noLoginAlert } from './sweetAlert';
 import { showAlert } from './alerts';
@@ -18,6 +19,7 @@ const notLogin = document.querySelector('.start-btn-notlogin');
 const pwField = document.getElementById('password');
 const togglePw = document.getElementById('togglePw');
 const icon = togglePw ? togglePw.querySelector('i') : null;
+const roleSelects = document.querySelector('.role--select');
 
 // DELEGATION
 if(signForm)
@@ -129,3 +131,12 @@ if (togglePw && pwField && icon) {
     }
   });
 }
+
+if(roleSelects)
+  roleSelects.addEventListener('change', (e) => {
+    e.preventDefault();
+    const user_id = document.getElementById('user_id').value;
+    const role = document.getElementById('role').value;
+    updateRole( user_id, role );
+  }
+);

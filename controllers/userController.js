@@ -88,7 +88,7 @@ exports.updateRole = catchAsync(async (req, res, next) => {
     { new: true }        
   );
 
-  // 3. If user is not found
+  // 4. If user is not found
   if(!user) {
     return next(
       new AppError(
@@ -98,7 +98,7 @@ exports.updateRole = catchAsync(async (req, res, next) => {
     );
   }
 
-  // 4. Respond with the updated user data
+  // 5. Respond with the updated user data
   res.status(200).json({
     status: 'success',
     message: 'Role updated successfully',

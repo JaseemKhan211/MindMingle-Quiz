@@ -15,10 +15,10 @@ block content
           each rl, index  in roles
             tr
               td= index + 1
-              td= rl.user_id
+              td = rl.user_id
               td= rl.username
               td= rl.email
-              td
+              td.role--select
                 select(name='role' data-user-id=rl.user_id)
                   option(value='admin' selected=rl.role === 'admin') Admin
                   option(value='user' selected=rl.role === 'user') User
