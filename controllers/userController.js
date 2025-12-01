@@ -67,7 +67,45 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
 });
 
 exports.updateRole = catchAsync(async (req, res, next) => {
-  
+  // 1. Extract userId and role from the request body
+  const user_id = req.params.id;
+  const { role } = req.body;
+
+  // 2. Validate role
+  if (!['admin', 'user'].includes(role)) {
+    return next(
+      new AppError(
+        'Invalid role provided', 
+        400
+      )
+    );
+  }
+
+  // 3. Find the user by userId and update their role
+  const user = await User.findOneAndUpdate(
+    { user_id: user_id }, 
+    { role: role },      
+    { new: true }        
+  );
+
+  // 3. If user is not found
+  if(!user) {
+    return next(
+      new AppError(
+        'No user found with that ID', 
+        404
+      )
+    );
+  }
+
+  // 4. Respond with the updated user data
+  res.status(200).json({
+    status: 'success',
+    message: 'Role updated successfully',
+    data: {
+      user,
+    },
+  });
 });
 
 exports.getMe = (req, res, next) => {

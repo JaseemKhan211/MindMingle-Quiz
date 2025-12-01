@@ -27,6 +27,10 @@ router.patch(
     userController.updateMe
 );
 
+router
+    .route('/updateRole/:id')
+    .patch(userController.updateRole);
+
 router.delete('/deleteMe', userController.deleteMe);
 
 router
