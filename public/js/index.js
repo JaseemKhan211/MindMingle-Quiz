@@ -130,13 +130,17 @@ if (togglePw && pwField && icon) {
       icon.classList.add('fa-eye');
     }
   });
-}
+};
 
-if(roleSelects)
-  roleSelects.addEventListener('change', (e) => {
-    e.preventDefault();
-    const user_id = document.getElementById('user_id').value;
-    const role = document.getElementById('role').value;
-    updateRole( user_id, role );
-  }
-);
+if (roleSelects) {
+  roleSelects.forEach(select => {
+    select.addEventListener('change', (e) => {
+      e.preventDefault();
+
+      const user_id = e.target.getAttribute('data-user-id'); 
+      const role = e.target.value;  
+
+      updateRole(user_id, role);
+    });
+  });
+};
