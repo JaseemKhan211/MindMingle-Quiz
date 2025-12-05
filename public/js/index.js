@@ -137,10 +137,20 @@ if (roleSelects) {
     select.addEventListener('change', (e) => {
       e.preventDefault();
 
-      const user_id = e.target.getAttribute('data-user-id'); 
-      const role = e.target.value;  
+      const user_id = e.target.getAttribute('data-user-id');  
+      const role = e.target.value; 
 
-      updateRole(user_id, role);
+      console.log(`User ID: ${user_id}, New Role: ${role}`);
+
+      updateRole(user_id, role)
+        .then(() => {
+          e.target.classList.add('updated'); 
+          console.log('Role updated successfully!');
+        })
+        .catch(err => {
+          alert('Error updating role: ' + err);
+          console.error('Error during update:', err);
+        });
     });
   });
 };

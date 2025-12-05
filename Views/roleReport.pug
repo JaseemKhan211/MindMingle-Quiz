@@ -18,7 +18,7 @@ block content
               td= rl.user_id
               td= rl.username
               td= rl.email
-              td.role--select
-                select(id='role' name='role' data-user-id=rl.user_id)
+              td
+                select(class='role--select' name='role' data-user-id=rl.user_id)
                   option(value='admin' selected=rl.role === 'admin') Admin
                   option(value='user' selected=rl.role === 'user') User

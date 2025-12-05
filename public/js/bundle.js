@@ -18708,20 +18708,25 @@ var updateRole = exports.updateRole = /*#__PURE__*/function () {
           });
         case 3:
           res = _context.sent;
-          if (res.data.status === 'success') {
-            (0, _alerts.showAlert)('success', 'Update role in successfully!');
+          if (!(res.data.status === 'success')) {
+            _context.next = 7;
+            break;
           }
-          _context.next = 10;
-          break;
+          (0, _alerts.showAlert)('success', 'Update role in successfully!');
+          return _context.abrupt("return", Promise.resolve());
         case 7:
-          _context.prev = 7;
+          _context.next = 13;
+          break;
+        case 9:
+          _context.prev = 9;
           _context.t0 = _context["catch"](0);
           (0, _alerts.showAlert)('error', _context.t0.response.data.message);
-        case 10:
+          return _context.abrupt("return", Promise.reject(_context.t0));
+        case 13:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 7]]);
+    }, _callee, null, [[0, 9]]);
   }));
   return function updateRole(_x, _x2) {
     return _ref.apply(this, arguments);
@@ -23627,13 +23632,21 @@ if (togglePw && pwField && icon) {
     }
   });
 }
+;
 if (roleSelects) {
   roleSelects.forEach(function (select) {
     select.addEventListener('change', function (e) {
       e.preventDefault();
       var user_id = e.target.getAttribute('data-user-id');
       var role = e.target.value;
-      (0, _updateAPI.updateRole)(user_id, role);
+      console.log("User ID: ".concat(user_id, ", New Role: ").concat(role));
+      (0, _updateAPI.updateRole)(user_id, role).then(function () {
+        e.target.classList.add('updated');
+        console.log('Role updated successfully!');
+      }).catch(function (err) {
+        alert('Error updating role: ' + err);
+        console.error('Error during update:', err);
+      });
     });
   });
 }
@@ -23663,7 +23676,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50256" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51054" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

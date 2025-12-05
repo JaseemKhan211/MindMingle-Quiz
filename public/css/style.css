@@ -1837,3 +1837,8 @@ a.btn.btn-report-qa:hover {
   font-weight: 500;
   margin-bottom: 10px;
 }
+
+.updated {
+  border-color: green;
+  background-color: #d4edda;
+}

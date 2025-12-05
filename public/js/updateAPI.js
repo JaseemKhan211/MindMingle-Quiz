@@ -14,8 +14,13 @@ export const updateRole = async (user_id, role) => {
                 'success', 
                 'Update role in successfully!'
             );
+            return Promise.resolve();
         }
     } catch (err) {
-        showAlert('error', err.response.data.message);
+        showAlert(
+            'error', 
+            err.response.data.message
+        );
+        return Promise.reject(err);
     }
 };
