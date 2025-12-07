@@ -1842,3 +1842,30 @@ a.btn.btn-report-qa:hover {
   border-color: green;
   background-color: #d4edda;
 }
+
+select {
+  padding: 15px 22px;
+  border-radius: 6px;
+  border: 1px solid #e6e6e6;
+  background: #fbfbfb;
+  font-size: 0.95rem;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.checkbox input {
+  width: 26px;
+  height: 26px;
+}

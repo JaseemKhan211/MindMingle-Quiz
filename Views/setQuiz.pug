@@ -1,0 +1,33 @@
+extends base
+
+block content
+    main.main
+        .login-form
+            h2.heading-secondary.ma-bt-lg Set Quiz (Admin Panel)
+
+            form.form.form--setQuiz
+                .form__group
+                    label.form__label(for="questionLimit") Number of Questions
+                    select#questionLimit(name="questionLimit")
+                        option(value="10") 10 Questions
+                        option(value="20") 20 Questions
+                        option(value="50") 50 Questions
+                        option(value="100") 100 Questions
+                .form__group
+                    label.form__label(for="quizTime") Total Quiz Time (Minutes)
+                    select#quizTime(name="quizTime")
+                        option(value="10") 10 Minutes
+                        option(value="20") 20 Minutes
+                        option(value="30") 30 Minutes
+                        option(value="60") 60 Minutes
+                .form__group
+                    .options
+                        label.checkbox
+                            input#shuffle(type="checkbox")
+                            span Shuffle Questions
+
+                        label.checkbox
+                            input#autoSubmit(type="checkbox")
+                            span Auto Submit on Time End
+                .form__group
+                    button.btn.btn--green(type="submit") Create 

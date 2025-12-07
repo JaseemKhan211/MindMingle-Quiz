@@ -12,10 +12,13 @@ router.get('/login', authController.isLoggedIn, viewController.getLoginForm);
 router.get('/add', authController.isLoggedIn, viewController.getSignForm);
 
 router.get('/me', authController.protect, viewController.getAccount);
-router.get('/select', authController.protect, viewController.getselectQuestion);
-router.get('/quiz', authController.protect, viewController.getstartQuiz);
+
+router.get('/set', authController.protect, viewController.getSetQuiz);
+// router.get('/quiz', authController.protect, viewController.getstartQuiz);
+
 router.get('/qaform', authController.protect, viewController.getqaForm);
 router.get('/report', authController.protect, viewController.getReport);
+
 router.get('/users', authController.protect, viewController.getUserReport);
 router.get('/roles', authController.protect, viewController.getRoleReport);
 
