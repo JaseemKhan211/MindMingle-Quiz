@@ -19,7 +19,7 @@ const notLogin = document.querySelector('.start-btn-notlogin');
 const pwField = document.getElementById('password');
 const togglePw = document.getElementById('togglePw');
 const icon = togglePw ? togglePw.querySelector('i') : null;
-const roleSelects = document.querySelector('.role--select');
+
 
 // DELEGATION
 if(signForm)
@@ -43,14 +43,6 @@ loginForm.addEventListener('submit', e => {
 });
 
 if (logOutBtn) logOutBtn.addEventListener('click', logout);
-
-// if (userDataForm)
-//     userDataForm.addEventListener('submit', e => {
-//       e.preventDefault();
-//       const username = document.getElementById('name').value;
-//       const email = document.getElementById('email').value;
-//       updateSettings({ username, email }, 'data');
-// });
 
 if (userDataForm)
   userDataForm.addEventListener('submit', e => {
@@ -132,25 +124,25 @@ if (togglePw && pwField && icon) {
   });
 };
 
-if (roleSelects) {
-  roleSelects.forEach(select => {
-    select.addEventListener('change', (e) => {
-      e.preventDefault();
+document.addEventListener('DOMContentLoaded', () => {
+  const roleSelects = document.querySelectorAll('.role--select');
 
-      const user_id = e.target.getAttribute('data-user-id');  
-      const role = e.target.value; 
+  if (roleSelects.length > 0) {
+    roleSelects.forEach(select => {
+      select.addEventListener('change', (e) => {
+        e.preventDefault();
 
-      console.log(`User ID: ${user_id}, New Role: ${role}`);
+        const user_id = e.target.getAttribute('data-user-id');
+        const role = e.target.value;
 
-      updateRole(user_id, role)
-        .then(() => {
-          e.target.classList.add('updated'); 
-          console.log('Role updated successfully!');
-        })
-        .catch(err => {
-          alert('Error updating role: ' + err);
-          console.error('Error during update:', err);
-        });
+        updateRole(user_id, role)
+          .then(() => {
+            e.target.classList.add('updated');
+          })
+          .catch(err => {
+            alert('❌ Error updating role');
+          });
+      });
     });
-  });
-};
+  }
+});
