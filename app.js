@@ -12,10 +12,10 @@ const cors = require('cors');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController'); 
+
 const viewRouter = require('./routes/viewRouters');
 const userRouters = require('./routes/userRouters');
-const dataRouters = require('./routes/dataRouters');
-const qaRouters = require('./routes/qaRouters');
+const quizRouters = require('./routes/quizRouters');
 
 // Start express app
 const app = express();
@@ -72,20 +72,13 @@ app.use((req, res, next) => {
     req.requestTime = new Date().toISOString();
     req.io = app.get('io');
 
-    // ERROR FIND LOG 💥💥💥
-    // console.log('Hearder App Js file log: ', req.headers);
-    // console.log(req.cookies);
-    // console.log('Response User Local Check: ', res.locals.user);
-    // console.log('Response User Local Check: ', req.user);
-    
     next();
 });
 
 // 3) ROUTES
 app.use('/', viewRouter);
 app.use('/api/v1/users', userRouters);
-app.use('/api/v1/data', dataRouters);
-app.use('/api/v1/uploadData', qaRouters);
+app.use('/api/v1/quiz', quizRouters);
 
 app.all('*', (req, res, next) => {
     next(new AppError(`Can't fint ${req.originalUrl} on the server!`, 404));
