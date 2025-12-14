@@ -15,7 +15,8 @@ const globalErrorHandler = require('./controllers/errorController');
 
 const viewRouter = require('./routes/viewRouters');
 const userRouters = require('./routes/userRouters');
-const quizRouters = require('./routes/quizRouters');
+const qaRouters = require('./routes/qaRouters');
+const quizRouter = require('./routes/quizRouters');
 
 // Start express app
 const app = express();
@@ -78,7 +79,8 @@ app.use((req, res, next) => {
 // 3) ROUTES
 app.use('/', viewRouter);
 app.use('/api/v1/users', userRouters);
-app.use('/api/v1/quiz', quizRouters);
+app.use('/api/v1/qa', qaRouters);
+app.use('/api/v1/quiz', quizRouter);
 
 app.all('*', (req, res, next) => {
     next(new AppError(`Can't fint ${req.originalUrl} on the server!`, 404));

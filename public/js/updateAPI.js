@@ -51,3 +51,5 @@ export const setQuiz = async (questionLimit, quizTime, shuffle, autoSubmit) => {
         );
     }
 };
+
+export const startQuiz = async (questionLimit, shuffle) => {};

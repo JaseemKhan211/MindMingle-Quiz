@@ -142,3 +142,9 @@ exports.getSetQuiz = async (req, res) => {
     title: "Set Quiz",
   });
 };
+
+exports.getStudentQuiz = async (req, res) => {
+  res.status(200).render('studentQuiz', {
+    title: "Quiz"
+  });
+};
