@@ -4,29 +4,14 @@ block content
   main.main
     .quiz-header
       h2 Student Quiz
-      span.timer ⏱ 15:00
+      span.timer ⏱ 00:00
 
     .quiz-card
-      h4.question-count Question 1 of 5
-      p.question-text What is the capital of France?
+      h4.question-count
+      p.question-text
 
       form#quizForm
         .options-group
-          label.option
-            input(type="radio" name="answer" value="London")
-            span London
-
-          label.option
-            input(type="radio" name="answer" value="Paris")
-            span Paris
-
-          label.option
-            input(type="radio" name="answer" value="Berlin")
-            span Berlin
-
-          label.option
-            input(type="radio" name="answer" value="Madrid")
-            span Madrid
 
         .form__group
           button.btn.btn--green(type="submit") Next

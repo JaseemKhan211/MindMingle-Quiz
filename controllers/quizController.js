@@ -5,7 +5,14 @@ const catchAsync = require("../utils/catchAsync");
 const AppError = require('../utils/appError');
 
 exports.setQuiz = catchAsync(async (req, res, next) => {
-  const { questionLimit, quizTime, shuffle, autoSubmit } = req.body;
+  let { questionLimit, quizTime, shuffle, autoSubmit } = req.body;
+
+  // Convert checkbox values to Boolean
+  shuffle = shuffle === 'on' ? true : false;
+  autoSubmit = autoSubmit === 'on' ? true : false;
+
+  questionLimit = Number(questionLimit);
+  quizTime = Number(quizTime);
 
   // 1. End previous active quiz
   await Quiz.updateMany(

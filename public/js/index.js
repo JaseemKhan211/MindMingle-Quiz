@@ -2,7 +2,7 @@ import '@babel/polyfill';
 import "@fortawesome/fontawesome-free/js/all.min.js";
 import { signUp, login, logout } from './login';
 import { updateSettings } from './updateSettings';
-import { updateRole, setQuiz } from './updateAPI';
+import { updateRole, setQuiz, startQuiz } from './updateAPI';
 import { raiseQuestion } from './raiseQuestion';
 import { WaitingAlert, noLoginAlert } from './sweetAlert';
 import { showAlert } from './alerts';
@@ -20,6 +20,13 @@ const pwField = document.getElementById('password');
 const togglePw = document.getElementById('togglePw');
 const icon = togglePw ? togglePw.querySelector('i') : null;
 const quizForm = document.querySelector('.form--setQuiz');
+
+// DOM ELEMENTS: Quiz Logic
+const questionTEXT = document.querySelector('.question-text');
+const optionsGroup = document.querySelector('.options-group');
+const nextBtn = document.querySelector('.btn--green');
+const timerEl = document.querySelector('.timer');
+const questionCount = document.querySelector('.question-count');
 
 
 // DELEGATION
@@ -157,3 +164,104 @@ if(quizForm)
     const autoSubmit = document.getElementById('autoSubmit').value;
     setQuiz(questionLimit, quizTime, shuffle, autoSubmit);
   });
+
+// DELEGATION: Quiz Logic
+let questions = [];
+let currentIndex = 0;
+let answers = [];
+let timerInterval;
+let autoSubmit = false;
+
+// 1) INIT
+const initQuiz = async () => {
+  const data = await startQuiz();
+
+  if (!data) return;
+  
+  questions = data.questions;
+  autoSubmit = data.autoSubmit;
+
+  startTimer(data.quizTime);
+  renderQuestion();
+};
+
+// 2) Render Question
+const renderQuestion = () => {
+  const q = questions[currentIndex];
+
+  questionCount.textContent = `Question ${currentIndex + 1} of ${questions.length}`;
+  questionTEXT.textContent = q.question;
+
+  optionsGroup.innerHTML = '';
+
+  q.options.forEach(opt => {
+    optionsGroup.insertAdjacentHTML(
+      'beforeend',
+      `
+      <label class="option">
+        <input type="radio" name="answer" value="${opt}">
+        <span>${opt}</span>
+      </label>
+      `
+    );
+  });
+};
+
+// 3) Next Button Logic
+nextBtn.addEventListener('click', e => {
+  e.preventDefault();
+
+  const selected = document.querySelector('input[name="answer"]:checked');
+
+  if (!selected) {
+    alert('Please select an option');
+    return;
+  }
+
+  answers[currentIndex] = {
+    questionId: questions[currentIndex]._id,
+    selectedAnswer: selected.value
+  };
+
+  currentIndex++;
+
+  if (currentIndex < questions.length) {
+    renderQuestion();
+  } else {
+    submitQuiz();
+  }
+});
+
+// 4) Timer Logic
+const startTimer = minutes => {
+  let time = minutes * 60;
+
+  timerInterval = setInterval(() => {
+    const min = Math.floor(time / 60);
+    const sec = time % 60;
+
+    timerEl.textContent = `⏱ ${min}:${sec < 10 ? '0' : ''}${sec}`;
+
+    time--;
+
+    if (time < 0) {
+      clearInterval(timerInterval);
+      if (autoSubmit) submitQuiz();
+    }
+  }, 1000);
+};
+
+// 5) Submit Quiz (for now console)
+const submitQuiz = () => {
+  clearInterval(timerInterval);
+
+  console.log('Submitted Answers:', answers)
+
+  showAlert(
+    'success', 
+    'Quiz submitted!'
+  )
+};
+
+// 6) START
+initQuiz();

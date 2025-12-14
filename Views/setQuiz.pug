@@ -9,6 +9,7 @@ block content
                 .form__group
                     label.form__label(for="questionLimit") Number of Questions
                     select#questionLimit(name="questionLimit")
+                        option(value="5") 5 Questions
                         option(value="10") 10 Questions
                         option(value="20") 20 Questions
                         option(value="50") 50 Questions
@@ -16,6 +17,7 @@ block content
                 .form__group
                     label.form__label(for="quizTime") Total Quiz Time (Minutes)
                     select#quizTime(name="quizTime")
+                        option(value="5") 5 Minutes
                         option(value="10") 10 Minutes
                         option(value="20") 20 Minutes
                         option(value="30") 30 Minutes
@@ -23,11 +25,11 @@ block content
                 .form__group
                     .options
                         label.checkbox
-                            input#shuffle(type="checkbox")
+                            input#shuffle(type="checkbox" name="shuffle" value="true")
                             span Shuffle Questions
 
                         label.checkbox
-                            input#autoSubmit(type="checkbox")
+                            input#autoSubmit(type="checkbox" name="autoSubmit" value="true")
                             span Auto Submit on Time End
                 .form__group
                     button.btn.btn--green(type="submit") Create 

@@ -52,4 +52,20 @@ export const setQuiz = async (questionLimit, quizTime, shuffle, autoSubmit) => {
     }
 };
 
-export const startQuiz = async (questionLimit, shuffle) => {};
+export const startQuiz = async () => {
+  try {
+    const res = await axios({
+      method: 'GET',
+      url: 'http://127.0.0.1:3000/api/v1/quiz/startQuiz'
+    });
+
+    if (res.data.status === 'success') {
+      return res.data;
+    }
+  } catch (err) {
+    showAlert(
+      'error',
+      err.response?.data?.message || 'Something went wrong'
+    );
+  }
+};
