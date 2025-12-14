@@ -2,7 +2,7 @@ import '@babel/polyfill';
 import "@fortawesome/fontawesome-free/js/all.min.js";
 import { signUp, login, logout } from './login';
 import { updateSettings } from './updateSettings';
-import { updateRole } from './updateAPI';
+import { updateRole, setQuiz } from './updateAPI';
 import { raiseQuestion } from './raiseQuestion';
 import { WaitingAlert, noLoginAlert } from './sweetAlert';
 import { showAlert } from './alerts';
@@ -19,6 +19,7 @@ const notLogin = document.querySelector('.start-btn-notlogin');
 const pwField = document.getElementById('password');
 const togglePw = document.getElementById('togglePw');
 const icon = togglePw ? togglePw.querySelector('i') : null;
+const quizForm = document.querySelector('.form--setQuiz');
 
 
 // DELEGATION
@@ -146,3 +147,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+if(quizForm)
+  quizForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const questionLimit = document.getElementById('questionLimit').value;
+    const quizTime = document.getElementById('quizTime').value;
+    const shuffle = document.getElementById('shuffle').value;
+    const autoSubmit = document.getElementById('autoSubmit').value;
+    setQuiz(questionLimit, quizTime, shuffle, autoSubmit);
+  });

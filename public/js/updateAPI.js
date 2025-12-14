@@ -24,3 +24,30 @@ export const updateRole = async (user_id, role) => {
         return Promise.reject(err);
     }
 };
+
+export const setQuiz = async (questionLimit, quizTime, shuffle, autoSubmit) => {
+    try {
+        const res = await axios({
+            method: 'POST',
+            url: 'http://127.0.0.1:3000/api/v1/quiz/setQuiz',
+            data: {
+                questionLimit, 
+                quizTime, 
+                shuffle, 
+                autoSubmit
+            }
+        });
+
+        if (res.data.status === 'success') {
+            showAlert(
+                'success', 
+                'Quiz add successfully!'
+            );
+        }
+    } catch (err) {
+        showAlert(
+            'error', 
+            err.response.data.message
+        );
+    }
+};
