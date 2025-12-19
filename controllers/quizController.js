@@ -82,3 +82,21 @@ exports.startQuiz = catchAsync(async (req, res, next) => {
     questions: safeQuestions
   });
 });
+
+exports.getActiveQuizzes = catchAsync(async (req, res, next) => {
+  const quiz = await Quiz.findOne({ status: 'active' });
+
+  if (!quiz) {
+    return next(
+      new AppError(
+        'No active quiz available', 
+        404
+      )
+    );
+  }
+
+  res.status(200).json({
+    status: 'success',
+    quiz
+  });
+});

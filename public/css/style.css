@@ -1937,3 +1937,16 @@ select {
   margin-top: 20px;
   text-align: right;
 }
+
+.quiz-info {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+.quiz-info li {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 15px;
+}

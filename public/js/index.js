@@ -1,8 +1,9 @@
 import '@babel/polyfill';
 import "@fortawesome/fontawesome-free/js/all.min.js";
+import Swal from 'sweetalert2';
 import { signUp, login, logout } from './login';
 import { updateSettings } from './updateSettings';
-import { updateRole, setQuiz, startQuiz } from './updateAPI';
+import { updateRole, setQuiz, startQuiz, activeQuiz } from './updateAPI';
 import { raiseQuestion } from './raiseQuestion';
 import { WaitingAlert, noLoginAlert } from './sweetAlert';
 import { showAlert } from './alerts';
@@ -20,6 +21,7 @@ const pwField = document.getElementById('password');
 const togglePw = document.getElementById('togglePw');
 const icon = togglePw ? togglePw.querySelector('i') : null;
 const quizForm = document.querySelector('.form--setQuiz');
+const startQuizBtn = document.querySelector('.start-btn');
 
 // DOM ELEMENTS: Quiz Logic
 const questionTEXT = document.querySelector('.question-text');
@@ -165,6 +167,51 @@ if(quizForm)
     setQuiz(questionLimit, quizTime, shuffle, autoSubmit);
   });
 
+if (startQuizBtn) {
+  startQuizBtn.addEventListener('click', async (e) => {
+    if (!e.isTrusted) return;
+
+    const quiz = await activeQuiz();
+
+    // 🛑 CASE 1: Admin has not started quiz
+    if (!quiz) {
+      Swal.fire({
+        icon: 'info',
+        title: 'Please Wait ⏳',
+        text: 'Admin is starting the quiz. Please wait...',
+        confirmButtonText: 'Okay',
+        confirmButtonColor: '#55c57a'
+      });
+      return;
+    }
+
+    // ✅ CASE 2: Quiz is active
+    const result = await Swal.fire({
+      title: '📘 Quiz Instructions',
+      width: 520,
+      html: `
+        <ul class="quiz-info">
+          <li>📝 <b>Questions:</b> ${quiz.questionLimit}</li>
+          <li>⏱ <b>Time Limit:</b> ${quiz.quizTime} minutes</li>
+          <li>⚡ <b>Auto Submit:</b> When time ends</li>
+          <li>🚫 <b>Warning:</b> Do not refresh the page</li>
+        </ul>
+        <p style="margin-top:10px;font-size:14px;color:#666">
+          Once started, the quiz cannot be paused.
+        </p>
+      `,
+      showCancelButton: true,
+      confirmButtonText: '🚀 Start Quiz',
+      cancelButtonText: 'Not Now',
+      confirmButtonColor: '#28a745'
+    });
+
+    if (result.isConfirmed) {
+      window.location.href = '/quiz';
+    }
+  });
+}
+
 // DELEGATION: Quiz Logic
 let questions = [];
 let currentIndex = 0;
@@ -208,29 +255,29 @@ const renderQuestion = () => {
 };
 
 // 3) Next Button Logic
-nextBtn.addEventListener('click', e => {
-  e.preventDefault();
+// nextBtn.addEventListener('click', e => {
+//   e.preventDefault();
 
-  const selected = document.querySelector('input[name="answer"]:checked');
+//   const selected = document.querySelector('input[name="answer"]:checked');
 
-  if (!selected) {
-    alert('Please select an option');
-    return;
-  }
+//   if (!selected) {
+//     alert('Please select an option');
+//     return;
+//   }
 
-  answers[currentIndex] = {
-    questionId: questions[currentIndex]._id,
-    selectedAnswer: selected.value
-  };
+//   answers[currentIndex] = {
+//     questionId: questions[currentIndex]._id,
+//     selectedAnswer: selected.value
+//   };
 
-  currentIndex++;
+//   currentIndex++;
 
-  if (currentIndex < questions.length) {
-    renderQuestion();
-  } else {
-    submitQuiz();
-  }
-});
+//   if (currentIndex < questions.length) {
+//     renderQuestion();
+//   } else {
+//     submitQuiz();
+//   }
+// });
 
 // 4) Timer Logic
 const startTimer = minutes => {

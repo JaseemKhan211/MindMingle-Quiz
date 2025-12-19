@@ -8,7 +8,7 @@ block content
     if !isLoggedIn
       a.start-btn-notlogin(href='#') Start Quiz
     else 
-      a.start-btn(href='/quiz') Start Quiz
+      a.start-btn(type="button") Start Quiz
     if (user && user.role === 'admin')
       a.start-btn(href='/set') Set Question Admin 
       a.start-btn(href='/qaForm') Add Q/A Form

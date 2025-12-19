@@ -69,3 +69,18 @@ export const startQuiz = async () => {
     );
   }
 };
+
+export const activeQuiz = async() => {
+    try {
+        let res = await axios({
+            method: 'GET',
+            url: 'http://127.0.0.1:3000/api/v1/quiz/active'
+        });
+
+        if (res.data.status === 'success') {
+            return res.data.quiz;
+        }
+    } catch (err) {
+        return null;
+    }
+};
