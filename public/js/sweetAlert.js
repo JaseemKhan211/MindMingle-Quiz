@@ -5,7 +5,8 @@ export const WaitingAlert =  () => {
         title: 'Please Wait!',
         text: 'The admin has not raised a question yet. Please wait...',
         icon: 'info',
-        showConfirmButton: true
+        confirmButtonText: 'Okay',
+        confirmButtonColor: '#55c57a'
     });
 }
 
@@ -36,6 +37,8 @@ export const noLoginAlert =  () => {
         title: 'You are Not Login',
         text: 'Please login first, then you can start the quiz.',
         icon: 'warning',
-        showConfirmButton: true
+        // showConfirmButton: true,
+        confirmButtonText: 'Okay',
+        confirmButtonColor: '#55c57a'
     });
 };

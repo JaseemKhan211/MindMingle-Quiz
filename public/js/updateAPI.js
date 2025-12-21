@@ -84,3 +84,21 @@ export const activeQuiz = async() => {
         return null;
     }
 };
+
+export const subAttQuiz = async(data) => {
+    try {
+        const res = await axios({
+            method: 'POST',
+            url: 'http://127.0.0.1:3000/api/v1/quiz-attempts/submit',
+            data,
+            withCredentials: true
+        });
+
+        return res.data;
+    } catch (err) {
+        showAlert(
+            'error',
+            err.response?.data?.message || 'Submit failed'
+        );
+    }
+};

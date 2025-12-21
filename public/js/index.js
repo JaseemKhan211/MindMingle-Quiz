@@ -3,7 +3,7 @@ import "@fortawesome/fontawesome-free/js/all.min.js";
 import Swal from 'sweetalert2';
 import { signUp, login, logout } from './login';
 import { updateSettings } from './updateSettings';
-import { updateRole, setQuiz, startQuiz, activeQuiz } from './updateAPI';
+import { updateRole, setQuiz, startQuiz, activeQuiz, subAttQuiz } from './updateAPI';
 import { raiseQuestion } from './raiseQuestion';
 import { WaitingAlert, noLoginAlert } from './sweetAlert';
 import { showAlert } from './alerts';
@@ -175,13 +175,7 @@ if (startQuizBtn) {
 
     // 🛑 CASE 1: Admin has not started quiz
     if (!quiz) {
-      Swal.fire({
-        icon: 'info',
-        title: 'Please Wait ⏳',
-        text: 'Admin is starting the quiz. Please wait...',
-        confirmButtonText: 'Okay',
-        confirmButtonColor: '#55c57a'
-      });
+      WaitingAlert();
       return;
     }
 
@@ -203,7 +197,7 @@ if (startQuizBtn) {
       showCancelButton: true,
       confirmButtonText: '🚀 Start Quiz',
       cancelButtonText: 'Not Now',
-      confirmButtonColor: '#28a745'
+      confirmButtonColor: '#55c57a'
     });
 
     if (result.isConfirmed) {
@@ -255,29 +249,29 @@ const renderQuestion = () => {
 };
 
 // 3) Next Button Logic
-// nextBtn.addEventListener('click', e => {
-//   e.preventDefault();
+nextBtn.addEventListener('click', e => {
+  e.preventDefault();
 
-//   const selected = document.querySelector('input[name="answer"]:checked');
+  const selected = document.querySelector('input[name="answer"]:checked');
 
-//   if (!selected) {
-//     alert('Please select an option');
-//     return;
-//   }
+  if (!selected) {
+    alert('Please select an option');
+    return;
+  }
 
-//   answers[currentIndex] = {
-//     questionId: questions[currentIndex]._id,
-//     selectedAnswer: selected.value
-//   };
+  answers[currentIndex] = {
+    questionId: questions[currentIndex]._id,
+    selectedAnswer: selected.value
+  };
 
-//   currentIndex++;
+  currentIndex++;
 
-//   if (currentIndex < questions.length) {
-//     renderQuestion();
-//   } else {
-//     submitQuiz();
-//   }
-// });
+  if (currentIndex < questions.length) {
+    renderQuestion();
+  } else {
+    submitQuiz();
+  }
+});
 
 // 4) Timer Logic
 const startTimer = minutes => {
@@ -299,10 +293,12 @@ const startTimer = minutes => {
 };
 
 // 5) Submit Quiz (for now console)
-const submitQuiz = () => {
+const submitQuiz = async () => {
   clearInterval(timerInterval);
 
-  console.log('Submitted Answers:', answers)
+  await subAttQuiz({
+    answers
+  });
 
   showAlert(
     'success', 

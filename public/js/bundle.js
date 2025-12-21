@@ -23204,7 +23204,7 @@ var updateSettings = exports.updateSettings = /*#__PURE__*/function () {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.updateRole = exports.startQuiz = exports.setQuiz = exports.activeQuiz = void 0;
+exports.updateRole = exports.subAttQuiz = exports.startQuiz = exports.setQuiz = exports.activeQuiz = void 0;
 var _axios = _interopRequireDefault(require("axios"));
 var _alerts = require("./alerts");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
@@ -23364,6 +23364,37 @@ var activeQuiz = exports.activeQuiz = /*#__PURE__*/function () {
     return _ref4.apply(this, arguments);
   };
 }();
+var subAttQuiz = exports.subAttQuiz = /*#__PURE__*/function () {
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(data) {
+    var res, _err$response2;
+    return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+      while (1) switch (_context5.prev = _context5.next) {
+        case 0:
+          _context5.prev = 0;
+          _context5.next = 3;
+          return (0, _axios.default)({
+            method: 'POST',
+            url: 'http://127.0.0.1:3000/api/v1/quiz-attempts/submit',
+            data: data,
+            withCredentials: true
+          });
+        case 3:
+          res = _context5.sent;
+          return _context5.abrupt("return", res.data);
+        case 7:
+          _context5.prev = 7;
+          _context5.t0 = _context5["catch"](0);
+          (0, _alerts.showAlert)('error', ((_err$response2 = _context5.t0.response) === null || _err$response2 === void 0 || (_err$response2 = _err$response2.data) === null || _err$response2 === void 0 ? void 0 : _err$response2.message) || 'Submit failed');
+        case 10:
+        case "end":
+          return _context5.stop();
+      }
+    }, _callee5, null, [[0, 7]]);
+  }));
+  return function subAttQuiz(_x7) {
+    return _ref5.apply(this, arguments);
+  };
+}();
 },{"axios":"../../node_modules/axios/index.js","./alerts":"alerts.js"}],"raiseQuestion.js":[function(require,module,exports) {
 "use strict";
 
@@ -23444,7 +23475,8 @@ var WaitingAlert = exports.WaitingAlert = function WaitingAlert() {
     title: 'Please Wait!',
     text: 'The admin has not raised a question yet. Please wait...',
     icon: 'info',
-    showConfirmButton: true
+    confirmButtonText: 'Okay',
+    confirmButtonColor: '#55c57a'
   });
 };
 var YourSuccess = exports.YourSuccess = function YourSuccess() {
@@ -23472,7 +23504,9 @@ var noLoginAlert = exports.noLoginAlert = function noLoginAlert() {
     title: 'You are Not Login',
     text: 'Please login first, then you can start the quiz.',
     icon: 'warning',
-    showConfirmButton: true
+    // showConfirmButton: true,
+    confirmButtonText: 'Okay',
+    confirmButtonColor: '#55c57a'
   });
 };
 },{"sweetalert2":"../../node_modules/sweetalert2/dist/sweetalert2.all.js"}],"index.js":[function(require,module,exports) {
@@ -23791,13 +23825,7 @@ if (startQuizBtn) {
               _context2.next = 8;
               break;
             }
-            _sweetalert.default.fire({
-              icon: 'info',
-              title: 'Please Wait ⏳',
-              text: 'Admin is starting the quiz. Please wait...',
-              confirmButtonText: 'Okay',
-              confirmButtonColor: '#55c57a'
-            });
+            (0, _sweetAlert.WaitingAlert)();
             return _context2.abrupt("return");
           case 8:
             _context2.next = 10;
@@ -23808,7 +23836,7 @@ if (startQuizBtn) {
               showCancelButton: true,
               confirmButtonText: '🚀 Start Quiz',
               cancelButtonText: 'Not Now',
-              confirmButtonColor: '#28a745'
+              confirmButtonColor: '#55c57a'
             });
           case 10:
             result = _context2.sent;
@@ -23878,29 +23906,24 @@ var renderQuestion = function renderQuestion() {
 };
 
 // 3) Next Button Logic
-// nextBtn.addEventListener('click', e => {
-//   e.preventDefault();
-
-//   const selected = document.querySelector('input[name="answer"]:checked');
-
-//   if (!selected) {
-//     alert('Please select an option');
-//     return;
-//   }
-
-//   answers[currentIndex] = {
-//     questionId: questions[currentIndex]._id,
-//     selectedAnswer: selected.value
-//   };
-
-//   currentIndex++;
-
-//   if (currentIndex < questions.length) {
-//     renderQuestion();
-//   } else {
-//     submitQuiz();
-//   }
-// });
+nextBtn.addEventListener('click', function (e) {
+  e.preventDefault();
+  var selected = document.querySelector('input[name="answer"]:checked');
+  if (!selected) {
+    alert('Please select an option');
+    return;
+  }
+  answers[currentIndex] = {
+    questionId: questions[currentIndex]._id,
+    selectedAnswer: selected.value
+  };
+  currentIndex++;
+  if (currentIndex < questions.length) {
+    renderQuestion();
+  } else {
+    submitQuiz();
+  }
+});
 
 // 4) Timer Logic
 var startTimer = function startTimer(minutes) {
@@ -23918,11 +23941,28 @@ var startTimer = function startTimer(minutes) {
 };
 
 // 5) Submit Quiz (for now console)
-var submitQuiz = function submitQuiz() {
-  clearInterval(timerInterval);
-  console.log('Submitted Answers:', answers);
-  (0, _alerts.showAlert)('success', 'Quiz submitted!');
-};
+var submitQuiz = /*#__PURE__*/function () {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+    return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+      while (1) switch (_context4.prev = _context4.next) {
+        case 0:
+          clearInterval(timerInterval);
+          _context4.next = 3;
+          return (0, _updateAPI.subAttQuiz)({
+            answers: answers
+          });
+        case 3:
+          (0, _alerts.showAlert)('success', 'Quiz submitted!');
+        case 4:
+        case "end":
+          return _context4.stop();
+      }
+    }, _callee4);
+  }));
+  return function submitQuiz() {
+    return _ref4.apply(this, arguments);
+  };
+}();
 
 // 6) START
 initQuiz();
@@ -23951,7 +23991,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50471" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51703" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
