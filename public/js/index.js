@@ -29,7 +29,7 @@ const optionsGroup = document.querySelector('.options-group');
 const nextBtn = document.querySelector('.btn--green');
 const timerEl = document.querySelector('.timer');
 const questionCount = document.querySelector('.question-count');
-
+const quIZForm = document.querySelector('#quizForm');
 
 // DELEGATION
 if(signForm)
@@ -206,19 +206,23 @@ if (startQuizBtn) {
   });
 }
 
-// DELEGATION: Quiz Logic
+// ===============================
+// QUIZ STATE
+// ===============================
 let questions = [];
 let currentIndex = 0;
 let answers = [];
 let timerInterval;
 let autoSubmit = false;
 
-// 1) INIT
+// ===============================
+// INIT
+// ===============================
 const initQuiz = async () => {
   const data = await startQuiz();
 
   if (!data) return;
-  
+
   questions = data.questions;
   autoSubmit = data.autoSubmit;
 
@@ -226,7 +230,9 @@ const initQuiz = async () => {
   renderQuestion();
 };
 
-// 2) Render Question
+// ===============================
+// RENDER QUESTION
+// ===============================
 const renderQuestion = () => {
   const q = questions[currentIndex];
 
@@ -248,32 +254,41 @@ const renderQuestion = () => {
   });
 };
 
-// 3) Next Button Logic
-nextBtn.addEventListener('click', e => {
-  e.preventDefault();
+// ===============================
+// NEXT BUTTON LOGIC
+// ===============================
+if (quIZForm && nextBtn) {
+  nextBtn.addEventListener('click', e => {
+    e.preventDefault();
 
-  const selected = document.querySelector('input[name="answer"]:checked');
+    const selected = document.querySelector('input[name="answer"]:checked');
 
-  if (!selected) {
-    alert('Please select an option');
-    return;
-  }
+    if (!selected) {
+      alert('Please select an option');
+      return;
+    }
 
-  answers[currentIndex] = {
-    question: questions[currentIndex]._id,
-    selectedAnswer: selected.value
-  };
+    answers[currentIndex] = {
+      question: questions[currentIndex]._id,
+      selectedAnswer: selected.value
+    };
 
-  currentIndex++;
+    currentIndex++;
 
-  if (currentIndex < questions.length) {
-    renderQuestion();
-  } else {
-    submitQuiz();
-  }
-});
+    if (currentIndex < questions.length) {
+      renderQuestion();
+    } else {
+      submitQuiz();
+    }
+  });
 
-// 4) Timer Logic
+  // ✅ Start quiz ONLY on quiz page
+  initQuiz();
+}
+
+// ===============================
+// TIMER
+// ===============================
 const startTimer = minutes => {
   let time = minutes * 60;
 
@@ -292,19 +307,13 @@ const startTimer = minutes => {
   }, 1000);
 };
 
-// 5) Submit Quiz (for now console)
+// ===============================
+// SUBMIT QUIZ
+// ===============================
 const submitQuiz = async () => {
   clearInterval(timerInterval);
 
-  await subAttQuiz({
-    answers
-  });
+  await subAttQuiz({ answers });
 
-  showAlert(
-    'success', 
-    'Quiz submitted!'
-  )
+  showAlert('success', 'Quiz submitted!');
 };
-
-// 6) START
-initQuiz();
