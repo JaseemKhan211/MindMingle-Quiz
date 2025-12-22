@@ -6,40 +6,58 @@ const catchAsync = require("../utils/catchAsync");
 const AppError = require('../utils/appError');
 
 exports.submitQuiz = catchAsync(async (req, res, next) => {
+  // 1. Extract answers from request body
   const { answers } = req.body;
 
-  // 1. GET active quiz
+  // 2. GET active quiz
   const quiz = await Quiz.findOne({ status: 'active' });
+  if (!quiz) return next(new AppError('No active quiz found', 400));
 
-  if (!quiz) {
-    return next(
-      new AppError(
-        'No active quiz found', 
-        400
-    )
-    );
-  }
-
-  // 2. Validate answers
+  // 3. Validate answers
   if (!answers || answers.length === 0) {
     return next(
       new AppError(
         'No answers submitted', 
         400
-    )
+      )
     );
   }
 
-  // 3. Save attempt
+  // 4. Calculate score
+  const questionIds = answers.map(a => a.question);
+  const questions = await QA.find({
+    _id: { $in: questionIds }
+  });
+
+  // 5. Tally correct answers
+  let score = 0;
+  answers.forEach(ans => {
+    const q = questions.find(q =>
+      q._id.toString() === ans.question.toString()
+    );
+    if (q && q.correct === ans.selectedAnswer) {
+      score++;
+    }
+  });
+
+  // 6. Save attempt with score and total questions
   const attempt = await Attempt.create({
     user: req.user._id,
     quiz: quiz._id,
-    answers
+    answers,
+    score,
+    totalQuestions: questions.length
   });
 
-  // 4. Response
+  // 7. Calculate percentage
+  const percentage = Math.round((score / questions.length) * 100);
+
+  // 8. Response with score details
   res.status(201).json({
     status: 'success',
+    score,
+    totalQuestions: questions.length,
+    percentage,
     message: 'Quiz submitted successfully',
     attemptId: attempt._id
   });

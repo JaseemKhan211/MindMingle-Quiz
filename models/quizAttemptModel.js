@@ -24,6 +24,11 @@ const attemptSchema = new mongoose.Schema({
       }
     }
   ],
+  score: {
+    type: Number,
+    default: 0
+  },
+  totalQuestions: Number,
   submittedAt: {
     type: Date,
     default: Date.now
