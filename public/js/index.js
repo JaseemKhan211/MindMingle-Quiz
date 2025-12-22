@@ -260,7 +260,7 @@ nextBtn.addEventListener('click', e => {
   }
 
   answers[currentIndex] = {
-    questionId: questions[currentIndex]._id,
+    question: questions[currentIndex]._id,
     selectedAnswer: selected.value
   };
 

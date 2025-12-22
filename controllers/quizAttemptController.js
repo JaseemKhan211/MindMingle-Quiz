@@ -6,8 +6,6 @@ const catchAsync = require("../utils/catchAsync");
 const AppError = require('../utils/appError');
 
 exports.submitQuiz = catchAsync(async (req, res, next) => {
-  console.log('REQ USER: ', req.user);
-
   const { answers } = req.body;
 
   // 1. GET active quiz
@@ -34,7 +32,7 @@ exports.submitQuiz = catchAsync(async (req, res, next) => {
 
   // 3. Save attempt
   const attempt = await Attempt.create({
-    user: req.user.id,  
+    user: req.user._id,
     quiz: quiz._id,
     answers
   });
