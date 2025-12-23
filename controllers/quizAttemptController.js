@@ -62,3 +62,36 @@ exports.submitQuiz = catchAsync(async (req, res, next) => {
     attemptId: attempt._id
   });
 });
+
+exports.getResult = catchAsync(async (req, res, next) => {
+  // 1. Fetch attempt by ID
+  const attempt = await Attempt.findById(req.params.id)
+    .populate('quiz')
+    .populate('user', 'username email');
+
+  // 2. Handle non-existent attempt
+  if (!attempt) {
+    return next(
+      new AppError(
+        'Result not found', 
+        404
+      )
+    );
+  }
+
+  // 3. Calculate percentage
+  const percentage = Math.round(
+    (attempt.score / attempt.totalQuestions) * 100
+  );
+
+  // 4. Send result response
+  res.status(200).json({
+    status: 'success',
+    result: {
+      score: attempt.score,
+      totalQuestions: attempt.totalQuestions,
+      percentage
+    }
+  });
+});
+

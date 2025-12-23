@@ -148,3 +148,9 @@ exports.getStudentQuiz = async (req, res) => {
     title: "Quiz"
   });
 };
+
+exports.getResults = async (req, res) => {
+  res.status(200).render('quizResult', {
+    title: "Result"
+  });
+}

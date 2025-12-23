@@ -9,5 +9,6 @@ const router = express.Router();
 router.use(authController.protect);
 
 router.post('/submit', quizAttemptController.submitQuiz);
+router.get('/result/:id', quizAttemptController.getResult);
 
 module.exports = router;

@@ -1950,3 +1950,84 @@ select {
   margin-bottom: 8px;
   font-size: 15px;
 }
+
+.result-container {
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.result-card {
+  background: #fff;
+  padding: 3rem;
+  border-radius: 12px;
+  text-align: center;
+  width: 420px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.result-title {
+  margin-bottom: 1.5rem;
+  font-size: 2.2rem;
+}
+
+.score-text {
+  margin-top: 1rem;
+  font-size: 1.3rem;
+}
+
+/* 🔵 Progress Circle */
+.progress-circle {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  margin: 1.5rem auto;
+  background: conic-gradient(
+    #55c57a calc(var(--percent) * 1%),
+    #eee 0
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.progress-circle .percent {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+/* Badges */
+.badge {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+.badge--excellent {
+  background: #ffd700;
+  color: #333;
+}
+
+.badge--pass {
+  background: #55c57a;
+  color: #fff;
+}
+
+.badge--fail {
+  background: #e74c3c;
+  color: #fff;
+}
+
+.result-msg {
+  margin: 1rem 0;
+  color: #555;
+}
+
+.result-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}

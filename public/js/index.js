@@ -195,7 +195,7 @@ if (startQuizBtn) {
         </p>
       `,
       showCancelButton: true,
-      confirmButtonText: '🚀 Start Quiz',
+      confirmButtonText: 'Start Quiz',
       cancelButtonText: 'Not Now',
       confirmButtonColor: '#55c57a'
     });
@@ -315,5 +315,9 @@ const submitQuiz = async () => {
 
   await subAttQuiz({ answers });
 
-  showAlert('success', 'Quiz submitted!');
+  if (res?._id) {
+    window.location.href = `/quiz-attempts/result/${res._id}`;
+  }
+  
+  // showAlert('success', 'Quiz submitted!');
 };

@@ -23835,7 +23835,7 @@ if (startQuizBtn) {
               width: 520,
               html: "\n        <ul class=\"quiz-info\">\n          <li>\uD83D\uDCDD <b>Questions:</b> ".concat(quiz.questionLimit, "</li>\n          <li>\u23F1 <b>Time Limit:</b> ").concat(quiz.quizTime, " minutes</li>\n          <li>\u26A1 <b>Auto Submit:</b> When time ends</li>\n          <li>\uD83D\uDEAB <b>Warning:</b> Do not refresh the page</li>\n        </ul>\n        <p style=\"margin-top:10px;font-size:14px;color:#666\">\n          Once started, the quiz cannot be paused.\n        </p>\n      "),
               showCancelButton: true,
-              confirmButtonText: '🚀 Start Quiz',
+              confirmButtonText: 'Start Quiz',
               cancelButtonText: 'Not Now',
               confirmButtonColor: '#55c57a'
             });
@@ -23961,6 +23961,7 @@ var startTimer = function startTimer(minutes) {
 // ===============================
 var submitQuiz = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+    var _res;
     return _regeneratorRuntime().wrap(function _callee4$(_context4) {
       while (1) switch (_context4.prev = _context4.next) {
         case 0:
@@ -23970,7 +23971,11 @@ var submitQuiz = /*#__PURE__*/function () {
             answers: answers
           });
         case 3:
-          (0, _alerts.showAlert)('success', 'Quiz submitted!');
+          if ((_res = res) !== null && _res !== void 0 && _res._id) {
+            window.location.href = "/quiz-attempts/result/".concat(res._id);
+          }
+
+          // showAlert('success', 'Quiz submitted!');
         case 4:
         case "end":
           return _context4.stop();
@@ -24006,7 +24011,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49850" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58352" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
