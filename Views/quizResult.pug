@@ -1,28 +1,28 @@
 extends base
 
 block content
-    main.main
-        .result-container
-            .result-card
-                h2.result-title 🎯 Quiz Result
+    main.result-page
+        .result-card
+            h2.result-title 🎯 Quiz Result
 
-                .progress-circle(data-percentage=`${result.percentage}`)
-                    span.percent #{result.percentage}%
+            .progress-wrapper
+                .progress-circle(style=`--percent:${result.percentage}`)
+                    span #{result.percentage}%
 
-                h3.score-text
-                    | Score: 
-                    strong #{result.score} / #{result.totalQuestions}
+            h3.score-text
+                | Score:
+                strong #{result.score} / #{result.totalQuestions}
 
-                if result.percentage >= 80
-                    span.badge.badge--excellent 🌟 Excellent
-                    p.result-msg You performed outstandingly. Keep it up!
-                else if result.percentage >= 50
-                    span.badge.badge--pass ✅ Passed
-                    p.result-msg Good job! You passed the quiz.
-                else
-                    span.badge.badge--fail ❌ Failed
-                    p.result-msg Don’t worry. Practice and try again.
+            if result.percentage >= 80
+                span.badge.badge--excellent 🌟 Excellent
+                p.result-msg Outstanding performance. Keep it up!
+            else if result.percentage >= 50
+                span.badge.badge--pass ✅ Passed
+                p.result-msg Good job. You passed the quiz.
+            else
+                span.badge.badge--fail ❌ Failed
+                p.result-msg Don’t worry. Practice and try again.
 
-                .result-actions
-                    a.btn.btn--green(href='/') Go Home
-                    a.btn.btn--small.btn--grey(href='/quiz') Retry Quiz
+            .result-actions
+                a.btn.btn--primary(href='/') Go Home
+                a.btn.btn--secondary(href='/quiz') Retry Quiz

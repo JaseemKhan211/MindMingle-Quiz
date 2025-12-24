@@ -3,7 +3,7 @@ import "@fortawesome/fontawesome-free/js/all.min.js";
 import Swal from 'sweetalert2';
 import { signUp, login, logout } from './login';
 import { updateSettings } from './updateSettings';
-import { updateRole, setQuiz, startQuiz, activeQuiz, subAttQuiz, getResult } from './updateAPI';
+import { updateRole, setQuiz, startQuiz, activeQuiz, subAttQuiz } from './updateAPI';
 import { raiseQuestion } from './raiseQuestion';
 import { WaitingAlert, noLoginAlert } from './sweetAlert';
 import { showAlert } from './alerts';
