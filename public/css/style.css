@@ -2034,19 +2034,19 @@ select {
   justify-content: space-between;
 }
 
-.btn {
+.btn--btn {
   padding: 10px 16px;
   border-radius: 8px;
   text-decoration: none;
   font-size: 14px;
 }
 
-.btn--primary {
+.btn----primary {
   background: #4caf50;
   color: #fff;
 }
 
-.btn--secondary {
+.btn-----secondary {
   background: #f1f1f1;
   color: #333;
 }
