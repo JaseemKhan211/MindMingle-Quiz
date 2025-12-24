@@ -23204,7 +23204,7 @@ var updateSettings = exports.updateSettings = /*#__PURE__*/function () {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.updateRole = exports.subAttQuiz = exports.startQuiz = exports.setQuiz = exports.activeQuiz = void 0;
+exports.updateRole = exports.subAttQuiz = exports.startQuiz = exports.setQuiz = exports.getResult = exports.activeQuiz = void 0;
 var _axios = _interopRequireDefault(require("axios"));
 var _alerts = require("./alerts");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
@@ -23393,6 +23393,35 @@ var subAttQuiz = exports.subAttQuiz = /*#__PURE__*/function () {
   }));
   return function subAttQuiz(_x7) {
     return _ref5.apply(this, arguments);
+  };
+}();
+var getResult = exports.getResult = /*#__PURE__*/function () {
+  var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(attempt_id) {
+    var res;
+    return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+      while (1) switch (_context6.prev = _context6.next) {
+        case 0:
+          _context6.prev = 0;
+          _context6.next = 3;
+          return (0, _axios.default)({
+            method: 'GET',
+            url: "http://127.0.0.1:3000/api/v1/quiz-attempts/result/".concat(attempt_id)
+          });
+        case 3:
+          res = _context6.sent;
+          return _context6.abrupt("return", res.data);
+        case 7:
+          _context6.prev = 7;
+          _context6.t0 = _context6["catch"](0);
+          (0, _alerts.showAlert)('error', _context6.t0.response.data.message);
+        case 10:
+        case "end":
+          return _context6.stop();
+      }
+    }, _callee6, null, [[0, 7]]);
+  }));
+  return function getResult(_x8) {
+    return _ref6.apply(this, arguments);
   };
 }();
 },{"axios":"../../node_modules/axios/index.js","./alerts":"alerts.js"}],"raiseQuestion.js":[function(require,module,exports) {
@@ -23961,7 +23990,7 @@ var startTimer = function startTimer(minutes) {
 // ===============================
 var submitQuiz = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-    var _res;
+    var result;
     return _regeneratorRuntime().wrap(function _callee4$(_context4) {
       while (1) switch (_context4.prev = _context4.next) {
         case 0:
@@ -23971,12 +24000,19 @@ var submitQuiz = /*#__PURE__*/function () {
             answers: answers
           });
         case 3:
-          if ((_res = res) !== null && _res !== void 0 && _res._id) {
-            window.location.href = "/quiz-attempts/result/".concat(res._id);
+          result = _context4.sent;
+          if (result) {
+            _context4.next = 6;
+            break;
+          }
+          return _context4.abrupt("return");
+        case 6:
+          if (result !== null && result !== void 0 && result.attemptId) {
+            window.location.href = "/quiz/result/".concat(result.attemptId);
           }
 
           // showAlert('success', 'Quiz submitted!');
-        case 4:
+        case 7:
         case "end":
           return _context4.stop();
       }
@@ -24011,7 +24047,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58352" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54910" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

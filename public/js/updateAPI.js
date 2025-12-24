@@ -102,3 +102,19 @@ export const subAttQuiz = async(data) => {
         );
     }
 };
+
+export const getResult = async(attempt_id) => {
+    try { 
+        const res = await axios({
+            method: 'GET',
+            url: `http://127.0.0.1:3000/api/v1/quiz-attempts/result/${attempt_id}`
+        });
+
+        return res.data;
+    } catch (err) {
+        showAlert(
+            'error', 
+            err.response.data.message
+        );
+    }
+};

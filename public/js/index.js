@@ -3,7 +3,7 @@ import "@fortawesome/fontawesome-free/js/all.min.js";
 import Swal from 'sweetalert2';
 import { signUp, login, logout } from './login';
 import { updateSettings } from './updateSettings';
-import { updateRole, setQuiz, startQuiz, activeQuiz, subAttQuiz } from './updateAPI';
+import { updateRole, setQuiz, startQuiz, activeQuiz, subAttQuiz, getResult } from './updateAPI';
 import { raiseQuestion } from './raiseQuestion';
 import { WaitingAlert, noLoginAlert } from './sweetAlert';
 import { showAlert } from './alerts';
@@ -313,10 +313,12 @@ const startTimer = minutes => {
 const submitQuiz = async () => {
   clearInterval(timerInterval);
 
-  await subAttQuiz({ answers });
+  const result = await subAttQuiz({ answers });
 
-  if (res?._id) {
-    window.location.href = `/quiz-attempts/result/${res._id}`;
+  if (!result) return;
+
+  if (result?.attemptId) {
+    window.location.href = `/quiz/result/${result.attemptId}`;
   }
   
   // showAlert('success', 'Quiz submitted!');

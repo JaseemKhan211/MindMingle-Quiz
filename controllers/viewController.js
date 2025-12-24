@@ -3,6 +3,7 @@ const fs = require("fs");
 
 const User = require('../models/userModel');
 const QA = require("../models/qaModel");
+const Attempt = require("../models/quizAttemptModel");
 
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
@@ -149,8 +150,32 @@ exports.getStudentQuiz = async (req, res) => {
   });
 };
 
-exports.getResults = async (req, res) => {
+exports.getResults = catchAsync(async (req, res, next) => {
+  // 1. Retrieve the attempt by ID
+  const attempt = await Attempt.findById(req.params.id);
+
+  // 2. If no attempt found, return error
+  if (!attempt) {
+    return next(
+      new AppError(
+        'Result not found', 
+        404
+      )
+    );
+  }
+
+  // 3. Calculate percentage score
+  const percentage = Math.round(
+    (attempt.score / attempt.totalQuestions) * 100
+  );
+
+  // 4. Render the results page with attempt data
   res.status(200).render('quizResult', {
-    title: "Result"
+    title: 'Quiz Result',
+    result: {
+      score: attempt.score,
+      totalQuestions: attempt.totalQuestions,
+      percentage
+    }
   });
-}
+});
