@@ -52,6 +52,10 @@ exports.submitQuiz = catchAsync(async (req, res, next) => {
   // 7. Calculate percentage
   const percentage = Math.round((score / questions.length) * 100);
 
+  // 8. Update quiz status 
+  quiz.status = 'ended';
+  await quiz.save();
+
   // 8. Response with score details
   res.status(201).json({
     status: 'success',
