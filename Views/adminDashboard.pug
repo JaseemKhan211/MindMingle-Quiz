@@ -1,16 +1,17 @@
 extends base
 
 block content
-    main.dashboard
-        h2 Admin Analytics Dashboard
+    main.main
+        .dashboard
+        h2.dashboard-title.ma-bt-lg Admin Analytics Dashboard
 
         .stats-grid
             .card
-                h4 Total Quizzes
+                h4 Total Quiz
                 span#totalQuizzes --
 
             .card
-                h4 Active Quizzes
+                h4 Active Quiz
                 span#activeQuizzes --
 
             .card
@@ -22,14 +23,24 @@ block content
                 span#totalStudents --
 
             .card
-                h4 Avg Score
+                h4 Average Score
                 span#avgScore --
 
-        h3 Recent Attempts
-        table
-            thead
-                tr
-                    th Student
-                    th Quiz
-                    th Score
-            tbody#recentAttempts
+        .charts-row
+            .chart-card
+                h3 Attempts Per Quiz
+                canvas#attemptsChart
+
+            .chart-card
+                h3 Average Score
+                canvas#scoreChart
+
+        .table-card
+            h3 Recent Attempts
+            table
+                thead
+                    tr
+                        th Student
+                        th Quiz
+                        th Score
+                tbody#recentAttempts

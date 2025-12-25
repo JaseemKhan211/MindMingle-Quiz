@@ -31,6 +31,7 @@ const timerEl = document.querySelector('.timer');
 const questionCount = document.querySelector('.question-count');
 const quIZForm = document.querySelector('#quizForm');
 const dashboard = document.querySelector('.dashboard');
+const tableBody = document.querySelector('#recentAttemptsBody');
 
 // DELEGATION
 if(signForm)
@@ -331,12 +332,14 @@ const loadAdminDashboard = async () => {
   const stats = await getAdminStats();
   if (!stats) return;
 
+  // Numbers
   document.querySelector('#totalQuizzes').textContent = stats.totalQuizzes;
   document.querySelector('#activeQuizzes').textContent = stats.activeQuizzes;
   document.querySelector('#totalStudents').textContent = stats.totalStudents;
   document.querySelector('#totalAttempts').textContent = stats.totalAttempts;
   document.querySelector('#avgScore').textContent = stats.avgScore;
 
+  // Recent Attempts
   const tbody = document.querySelector('#recentAttempts');
   tbody.innerHTML = '';
 
@@ -351,6 +354,34 @@ const loadAdminDashboard = async () => {
       </tr>
       `
     );
+  });
+
+  // Charts
+  renderCharts(stats);
+};
+
+const renderCharts = (stats) => {
+  // Attempts per Quiz
+  new Chart(document.getElementById('attemptChart'), {
+    type: 'bar',
+    data: {
+      labels: stats.attemptsPerQuiz.map(q => q.quiz),
+      datasets: [{
+        label: 'Attempts',
+        data: stats.attemptsPerQuiz.map(q => q.count)
+      }]
+    }
+  });
+
+  // Avg Score
+  new Chart(document.getElementById('scoreChart'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Average Score', 'Remaining'],
+      datasets: [{
+        data: [stats.avgScore, 10 - stats.avgScore]
+      }]
+    }
   });
 };
 
