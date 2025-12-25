@@ -1,0 +1,35 @@
+extends base
+
+block content
+    main.dashboard
+        h2 Admin Analytics Dashboard
+
+        .stats-grid
+            .card
+                h4 Total Quizzes
+                span#totalQuizzes --
+
+            .card
+                h4 Active Quizzes
+                span#activeQuizzes --
+
+            .card
+                h4 Total Attempts
+                span#totalAttempts --
+
+            .card
+                h4 Total Students
+                span#totalStudents --
+
+            .card
+                h4 Avg Score
+                span#avgScore --
+
+        h3 Recent Attempts
+        table
+            thead
+                tr
+                    th Student
+                    th Quiz
+                    th Score
+            tbody#recentAttempts

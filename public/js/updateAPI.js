@@ -118,3 +118,20 @@ export const getResult = async(attempt_id) => {
         );
     }
 };
+
+export const getAdminStats = async () => {
+  try {
+    const res = await axios({
+      method: 'GET',
+      url: 'http://127.0.0.1:3000/api/v1/admin/dashboard',
+      withCredentials: true
+    });
+
+    return res.data.stats;
+  } catch (err) {
+    showAlert(
+        'error', 
+        'Failed to load dashboard stats'
+    );
+  }
+};

@@ -3,7 +3,7 @@ import "@fortawesome/fontawesome-free/js/all.min.js";
 import Swal from 'sweetalert2';
 import { signUp, login, logout } from './login';
 import { updateSettings } from './updateSettings';
-import { updateRole, setQuiz, startQuiz, activeQuiz, subAttQuiz } from './updateAPI';
+import { updateRole, setQuiz, startQuiz, activeQuiz, subAttQuiz, getAdminStats } from './updateAPI';
 import { raiseQuestion } from './raiseQuestion';
 import { WaitingAlert, noLoginAlert } from './sweetAlert';
 import { showAlert } from './alerts';
@@ -30,6 +30,7 @@ const nextBtn = document.querySelector('.btn--green');
 const timerEl = document.querySelector('.timer');
 const questionCount = document.querySelector('.question-count');
 const quIZForm = document.querySelector('#quizForm');
+const dashboard = document.querySelector('.dashboard');
 
 // DELEGATION
 if(signForm)
@@ -323,3 +324,34 @@ const submitQuiz = async () => {
   
   // showAlert('success', 'Quiz submitted!');
 };
+
+const loadAdminDashboard = async () => {
+  if (!dashboard) return;
+
+  const stats = await getAdminStats();
+  if (!stats) return;
+
+  document.querySelector('#totalQuizzes').textContent = stats.totalQuizzes;
+  document.querySelector('#activeQuizzes').textContent = stats.activeQuizzes;
+  document.querySelector('#totalStudents').textContent = stats.totalStudents;
+  document.querySelector('#totalAttempts').textContent = stats.totalAttempts;
+  document.querySelector('#avgScore').textContent = stats.avgScore;
+
+  const tbody = document.querySelector('#recentAttempts');
+  tbody.innerHTML = '';
+
+  stats.recentAttempts.forEach(a => {
+    tbody.insertAdjacentHTML(
+      'beforeend',
+      `
+      <tr>
+        <td>${a.user.username}</td>
+        <td>${a.quiz._id}</td>
+        <td>${a.score}</td>
+      </tr>
+      `
+    );
+  });
+};
+
+loadAdminDashboard();

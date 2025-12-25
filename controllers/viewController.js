@@ -179,3 +179,9 @@ exports.getResults = catchAsync(async (req, res, next) => {
     }
   });
 });
+
+exports.getAdminDashboard = async (req, res) => {
+  res.status(200).render('adminDashboard', {
+    title: "Admin Dashboard"
+  });
+};
