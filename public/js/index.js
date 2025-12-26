@@ -1,6 +1,7 @@
 import '@babel/polyfill';
 import "@fortawesome/fontawesome-free/js/all.min.js";
 import Swal from 'sweetalert2';
+import Chart from 'chart.js/auto';
 import { signUp, login, logout } from './login';
 import { updateSettings } from './updateSettings';
 import { updateRole, setQuiz, startQuiz, activeQuiz, subAttQuiz, getAdminStats } from './updateAPI';
@@ -356,33 +357,45 @@ const loadAdminDashboard = async () => {
     );
   });
 
+  console.log(stats.attemptsPerQuiz);
+  console.log(stats.avgScore);
+
   // Charts
   renderCharts(stats);
+
+  console.log(stats.attemptsPerQuiz);
+  console.log(stats.avgScore);
+
 };
 
 const renderCharts = (stats) => {
-  // Attempts per Quiz
-  new Chart(document.getElementById('attemptChart'), {
-    type: 'bar',
-    data: {
-      labels: stats.attemptsPerQuiz.map(q => q.quiz),
-      datasets: [{
-        label: 'Attempts',
-        data: stats.attemptsPerQuiz.map(q => q.count)
-      }]
-    }
-  });
 
-  // Avg Score
-  new Chart(document.getElementById('scoreChart'), {
-    type: 'doughnut',
-    data: {
-      labels: ['Average Score', 'Remaining'],
-      datasets: [{
-        data: [stats.avgScore, 10 - stats.avgScore]
-      }]
-    }
-  });
+  const attemptCtx = document.getElementById('attemptChart');
+  if (attemptCtx) {
+    new Chart(attemptCtx, {
+      type: 'bar',
+      data: {
+        labels: stats.attemptsPerQuiz.map(q => q.quiz),
+        datasets: [{
+          label: 'Attempts',
+          data: stats.attemptsPerQuiz.map(q => q.count)
+        }]
+      }
+    });
+  }
+
+  const scoreCtx = document.getElementById('scoreChart');
+  if (scoreCtx) {
+    new Chart(scoreCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Average Score', 'Remaining'],
+        datasets: [{
+          data: [stats.avgScore, 10 - stats.avgScore]
+        }]
+      }
+    });
+  }
 };
 
 loadAdminDashboard();

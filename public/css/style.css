@@ -2059,7 +2059,7 @@ select {
   max-width: 1600px;
   margin: 0 auto;
   padding: 3rem 2.5rem;
-  font-family: 'Roboto', sans-serif;
+  /* font-family: 'Roboto', sans-serif; */
   background: #f8fafc;
 }
 
@@ -2248,3 +2248,10 @@ tbody tr:hover {
     font-size: 1.7rem;
   }
 }
+
+.chart-card canvas {
+  width: 100% !important;
+  max-width: 100%;
+  height: 260px !important;
+}
+

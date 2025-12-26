@@ -11,8 +11,33 @@ exports.getDashboardStats = catchAsync(async (req, res, next) => {
   const activeQuizzes = await Quiz.countDocuments({ status: 'active' });
   const totalAttempts = await Attempt.countDocuments();
   const totalStudents = await User.countDocuments({ role: 'user' });
+
+  // 2. Number of attempts per quiz
+  const attemptsPerQuiz = await Attempt.aggregate([
+    {
+      $group: {
+        _id: '$quiz',
+        count: { $sum: 1 }
+      }
+    },
+    {
+      $lookup: {
+        from: 'quizzes',
+        localField: '_id',
+        foreignField: '_id',
+        as: 'quiz'
+      }
+    },
+    { $unwind: '$quiz' },
+    {
+      $project: {
+        quiz: '$quiz.title',
+        count: 1
+      }
+    }
+  ]);
   
-  // 2. Average score across all attempts
+  // 3. Average score across all attempts
   const avgScoreAgg = await Attempt.aggregate([
     {
       $group: {
@@ -24,14 +49,14 @@ exports.getDashboardStats = catchAsync(async (req, res, next) => {
 
   const avgScore = avgScoreAgg[0]?.avgScore || 0;
 
-  // 3. Recent attempts (last 5)
+  // 4. Recent attempts (last 5)
   const recentAttempts = await Attempt.find()
     .populate('user', 'username')
     .populate('quiz')
     .sort({ createdAt: -1 })
     .limit(5);
 
-  // 4. Send response
+  // 5. Send response
   res.status(200).json({
     status: 'success',
     stats: {
@@ -40,6 +65,7 @@ exports.getDashboardStats = catchAsync(async (req, res, next) => {
       totalAttempts,
       totalStudents,
       avgScore: avgScore.toFixed(2),
+      attemptsPerQuiz,
       recentAttempts
     }
   });

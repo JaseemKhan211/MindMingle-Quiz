@@ -3,44 +3,44 @@ extends base
 block content
     main.main
         .dashboard
-        h2.dashboard-title.ma-bt-lg Admin Analytics Dashboard
+            h2.dashboard-title.ma-bt-lg Admin Analytics Dashboard
 
-        .stats-grid
-            .card
-                h4 Total Quiz
-                span#totalQuizzes --
+            .stats-grid
+                .card
+                    h4 Total Quiz
+                    span#totalQuizzes --
 
-            .card
-                h4 Active Quiz
-                span#activeQuizzes --
+                .card
+                    h4 Active Quiz
+                    span#activeQuizzes --
 
-            .card
-                h4 Total Attempts
-                span#totalAttempts --
+                .card
+                    h4 Total Attempts
+                    span#totalAttempts --
 
-            .card
-                h4 Total Students
-                span#totalStudents --
+                .card
+                    h4 Total Students
+                    span#totalStudents --
 
-            .card
-                h4 Average Score
-                span#avgScore --
+                .card
+                    h4 Average Score
+                    span#avgScore --
 
-        .charts-row
-            .chart-card
-                h3 Attempts Per Quiz
-                canvas#attemptChart(height="120")
+            .charts-row
+                .chart-card
+                    h3 Attempts Per Quiz
+                    canvas#attemptChart
 
-            .chart-card
-                h3 Average Score
-                canvas#scoreChart(height="120")
+                .chart-card
+                    h3 Average Score
+                    canvas#scoreChart
 
-        .table-card
-            h3 Recent Attempts
-            table
-                thead
-                    tr
-                        th Student
-                        th Quiz
-                        th Score
-                tbody#recentAttempts
+            .table-card
+                h3 Recent Attempts
+                table
+                    thead
+                        tr
+                            th Student
+                            th Quiz
+                            th Score
+                    tbody#recentAttempts
