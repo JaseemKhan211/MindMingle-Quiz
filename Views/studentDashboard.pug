@@ -1,0 +1,50 @@
+extends base
+
+block content
+    main.student-dashboard
+        .container
+
+            // Header
+            .dashboard-header
+                h2 Welcome Back 👋
+                p Track your progress and performance
+
+            // Stats Cards
+            .stats-grid
+                .stat-card.gradient-blue
+                    h4 Total Attempts
+                    span#totalAttempts --
+
+                .stat-card.gradient-green
+                    h4 Best Score
+                    span#bestScore --
+
+                .stat-card.gradient-purple
+                    h4 Average Score
+                    span#avgScore --
+
+                .stat-card.gradient-orange
+                    h4 Level
+                    span#studentLevel Beginner
+
+            // Charts
+            .charts-grid
+                .chart-card
+                    h3 Score Progress
+                    canvas#scoreProgress(height="120")
+
+                .chart-card
+                    h3 Attempts Per Quiz
+                    canvas#attemptChart(height="120")
+
+            // Recent Attempts
+            .table-card
+                h3 Recent Attempts
+                table
+                    thead
+                        tr
+                            th Quiz
+                            th Score
+                            th Status
+                            th Date
+                    tbody#recentAttempts
