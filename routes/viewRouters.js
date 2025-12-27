@@ -23,6 +23,7 @@ router.get('/report', authController.protect, viewController.getReport);
 router.get('/users', authController.protect, viewController.getUserReport);
 router.get('/roles', authController.protect, viewController.getRoleReport);
 router.get('/admin-dashboard', authController.protect, viewController.getAdminDashboard);
+router.get('/student-dashboard', authController.protect, viewController.getStudentDashboard);
 
 router.post(
     "/upload", 

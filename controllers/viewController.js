@@ -185,3 +185,9 @@ exports.getAdminDashboard = async (req, res) => {
     title: "Admin Dashboard"
   });
 };
+
+exports.getStudentDashboard = async (req, res) => {
+  res.status(200).render('studentDashboard', {
+    title: "Student Dashboard"
+  });
+}
