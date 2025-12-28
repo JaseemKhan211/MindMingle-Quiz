@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import Chart from 'chart.js/auto';
 import { signUp, login, logout } from './login';
 import { updateSettings } from './updateSettings';
-import { updateRole, setQuiz, startQuiz, activeQuiz, subAttQuiz, getAdminStats } from './updateAPI';
+import { updateRole, setQuiz, startQuiz, activeQuiz, subAttQuiz, getAdminStats, getStudentStats } from './updateAPI';
 import { raiseQuestion } from './raiseQuestion';
 import { WaitingAlert, noLoginAlert } from './sweetAlert';
 import { showAlert } from './alerts';
@@ -31,8 +31,11 @@ const nextBtn = document.querySelector('.btn--green');
 const timerEl = document.querySelector('.timer');
 const questionCount = document.querySelector('.question-count');
 const quIZForm = document.querySelector('#quizForm');
+// DOM ELEMENTS: Admin Dashboard
 const dashboard = document.querySelector('.dashboard');
 const tableBody = document.querySelector('#recentAttemptsBody');
+// DOM ELEMENTS: Student Dashboard
+const studentDashboard = document.querySelector('.student-dashboard');
 
 // DELEGATION
 if(signForm)
@@ -327,6 +330,9 @@ const submitQuiz = async () => {
   // showAlert('success', 'Quiz submitted!');
 };
 
+// ===============================
+// ADMIN DASHBOARD
+// ===============================
 const loadAdminDashboard = async () => {
   if (!dashboard) return;
 
@@ -399,3 +405,102 @@ const renderCharts = (stats) => {
 };
 
 loadAdminDashboard();
+
+// ===============================
+// STUDENT DASHBOARD
+// ===============================
+const loadStudentDashboard = async () => {
+  if (!studentDashboard) return;
+
+  const stats = await getStudentDashboard();
+  if (!stats) return;
+
+  /* =====================
+     STAT CARDS
+  ===================== */
+  document.querySelector('#totalAttempts').textContent = stats.totalAttempts;
+  document.querySelector('#bestScore').textContent = stats.bestScore;
+  document.querySelector('#avgScore').textContent = stats.avgScore;
+
+  /* =====================
+     RECENT ATTEMPTS TABLE
+  ===================== */
+  const tbody = document.querySelector('#recentAttempts');
+  tbody.innerHTML = '';
+
+  if (stats.recentAttempts.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="3" style="text-align:center;">No attempts yet</td>
+      </tr>
+    `;
+  }
+
+  stats.recentAttempts.forEach(a => {
+    tbody.insertAdjacentHTML(
+      'beforeend',
+      `
+      <tr>
+        <td>${a.quiz.title}</td>
+        <td>${a.score}</td>
+        <td>${new Date(a.submittedAt).toLocaleDateString()}</td>
+      </tr>
+      `
+    );
+  });
+
+  /* =====================
+     CHARTS
+  ===================== */
+  renderStudentCharts(stats);
+};
+
+const renderStudentCharts = (stats) => {
+
+  /* === Attempts Per Quiz (Bar) === */
+  const attemptCtx = document.getElementById('attemptChart');
+
+  if (attemptCtx && stats.attemptsPerQuiz.length) {
+    new Chart(attemptCtx, {
+      type: 'bar',
+      data: {
+        labels: stats.attemptsPerQuiz.map(q => q.quiz),
+        datasets: [{
+          label: 'Attempts',
+          data: stats.attemptsPerQuiz.map(q => q.count),
+          backgroundColor: '#4f46e5'
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false }
+        }
+      }
+    });
+  }
+
+  /* === Average Score (Doughnut) === */
+  const scoreCtx = document.getElementById('scoreProgress');
+
+  if (scoreCtx) {
+    new Chart(scoreCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Score', 'Remaining'],
+        datasets: [{
+          data: [stats.avgScore, 10 - stats.avgScore],
+          backgroundColor: ['#22c55e', '#e5e7eb']
+        }]
+      },
+      options: {
+        cutout: '70%',
+        plugins: {
+          legend: { position: 'bottom' }
+        }
+      }
+    });
+  }
+};
+
+loadStudentDashboard();

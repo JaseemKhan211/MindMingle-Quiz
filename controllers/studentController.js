@@ -74,7 +74,7 @@ exports.getDashboardStats = catchAsync(async (req, res, next) => {
   // 8. Send response   
   res.status(200).json({
     status: 'success',
-    data: {
+    stats: {
       totalAttempts,
       bestScore,
       avgScore,
