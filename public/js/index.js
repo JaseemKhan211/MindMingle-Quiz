@@ -409,10 +409,29 @@ loadAdminDashboard();
 // ===============================
 // STUDENT DASHBOARD
 // ===============================
+
+const MAX_SCORE = 10;
+
+/* =====================
+   HELPERS
+===================== */
+const calculateLevel = (avgScore) => {
+  if (avgScore >= 8) return 'Advanced';
+  if (avgScore >= 4) return 'Intermediate';
+  return 'Beginner';
+};
+
+const getAttemptStatus = (score) => {
+  return score >= 7 ? 'Passed' : 'Failed';
+};
+
+/* =====================
+   LOAD DASHBOARD
+===================== */
 const loadStudentDashboard = async () => {
   if (!studentDashboard) return;
 
-  const stats = await getStudentDashboard();
+  const stats = await getStudentStats();
   if (!stats) return;
 
   /* =====================
@@ -421,6 +440,8 @@ const loadStudentDashboard = async () => {
   document.querySelector('#totalAttempts').textContent = stats.totalAttempts;
   document.querySelector('#bestScore').textContent = stats.bestScore;
   document.querySelector('#avgScore').textContent = stats.avgScore;
+  document.querySelector('#studentLevel').textContent =
+    calculateLevel(stats.avgScore);
 
   /* =====================
      RECENT ATTEMPTS TABLE
@@ -428,26 +449,29 @@ const loadStudentDashboard = async () => {
   const tbody = document.querySelector('#recentAttempts');
   tbody.innerHTML = '';
 
-  if (stats.recentAttempts.length === 0) {
+  if (!stats.recentAttempts.length) {
     tbody.innerHTML = `
       <tr>
-        <td colspan="3" style="text-align:center;">No attempts yet</td>
+        <td colspan="4" style="text-align:center;">No attempts yet</td>
       </tr>
     `;
+  } else {
+    stats.recentAttempts.forEach(a => {
+      tbody.insertAdjacentHTML(
+        'beforeend',
+        `
+        <tr>
+          <td>${a.quiz?.title || 'Deleted Quiz'}</td>
+          <td>${a.score}</td>
+          <td class="${a.score >= 7 ? 'status-pass' : 'status-fail'}">
+            ${getAttemptStatus(a.score)}
+          </td>
+          <td>${new Date(a.submittedAt).toLocaleDateString()}</td>
+        </tr>
+        `
+      );
+    });
   }
-
-  stats.recentAttempts.forEach(a => {
-    tbody.insertAdjacentHTML(
-      'beforeend',
-      `
-      <tr>
-        <td>${a.quiz.title}</td>
-        <td>${a.score}</td>
-        <td>${new Date(a.submittedAt).toLocaleDateString()}</td>
-      </tr>
-      `
-    );
-  });
 
   /* =====================
      CHARTS
@@ -455,29 +479,37 @@ const loadStudentDashboard = async () => {
   renderStudentCharts(stats);
 };
 
+/* =====================
+   CHARTS
+===================== */
 const renderStudentCharts = (stats) => {
 
   /* === Attempts Per Quiz (Bar) === */
   const attemptCtx = document.getElementById('attemptChart');
 
-  if (attemptCtx && stats.attemptsPerQuiz.length) {
-    new Chart(attemptCtx, {
-      type: 'bar',
-      data: {
-        labels: stats.attemptsPerQuiz.map(q => q.quiz),
-        datasets: [{
-          label: 'Attempts',
-          data: stats.attemptsPerQuiz.map(q => q.count),
-          backgroundColor: '#4f46e5'
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { display: false }
+  if (attemptCtx) {
+    if (!stats.attemptsPerQuiz.length) {
+      attemptCtx.parentElement.innerHTML =
+        '<p class="empty-state">No quiz attempts yet</p>';
+    } else {
+      new Chart(attemptCtx, {
+        type: 'bar',
+        data: {
+          labels: stats.attemptsPerQuiz.map(q => q.quiz),
+          datasets: [{
+            label: 'Attempts',
+            data: stats.attemptsPerQuiz.map(q => q.count),
+            backgroundColor: '#4f46e5'
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: false }
+          }
         }
-      }
-    });
+      });
+    }
   }
 
   /* === Average Score (Doughnut) === */
@@ -489,7 +521,7 @@ const renderStudentCharts = (stats) => {
       data: {
         labels: ['Score', 'Remaining'],
         datasets: [{
-          data: [stats.avgScore, 10 - stats.avgScore],
+          data: [stats.avgScore, MAX_SCORE - stats.avgScore],
           backgroundColor: ['#22c55e', '#e5e7eb']
         }]
       },

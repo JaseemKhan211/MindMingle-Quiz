@@ -140,7 +140,7 @@ export const getStudentStats = async () => {
     try {
         const res = await axios({
             method: 'GET',
-            url: 'http://127.0.0.1:3000/api/v1/student/dashboard',
+            url: 'http://127.0.0.1:3000/api/v1/students/dashboard',
             withCredentials: true
         });
 

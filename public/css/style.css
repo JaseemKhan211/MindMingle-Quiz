@@ -2387,3 +2387,13 @@ tbody tr:hover {
   color: #dc2626;
   font-weight: 600;
 }
+
+.status-pass {
+  color: #16a34a;
+  font-weight: 600;
+}
+
+.status-fail {
+  color: #dc2626;
+  font-weight: 600;
+}
