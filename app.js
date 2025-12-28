@@ -19,6 +19,7 @@ const qaRouters = require('./routes/qaRouters');
 const quizRouter = require('./routes/quizRouters');
 const quizAttemptRouter = require('./routes/quizAttemptRouters');
 const adminRouter = require('./routes/adminRoutes');
+const studentRouter = require('./routes/studentRouters');
 
 // Start express app
 const app = express();
@@ -85,6 +86,7 @@ app.use('/api/v1/qa', qaRouters);
 app.use('/api/v1/quiz', quizRouter);
 app.use('/api/v1/quiz-attempts', quizAttemptRouter);
 app.use('/api/v1/admin', adminRouter);
+app.use('/api/v1/students', studentRouter);
 
 app.all('*', (req, res, next) => {
     next(new AppError(`Can't fint ${req.originalUrl} on the server!`, 404));

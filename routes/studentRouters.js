@@ -7,6 +7,6 @@ const router = express.Router();
 // Protect all routes after this middleware
 router.use(authController.protect);
 
-router.get('/student-dashboard', studentController.getStudentDashboard);
+router.get('/dashboard', studentController.getDashboardStats);
 
 module.exports = router;
